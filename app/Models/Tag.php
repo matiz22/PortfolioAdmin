@@ -10,4 +10,6 @@ class Tag extends Model
     use HasTranslations;
 
     public array $translatable = ['name'];
+
+    public $fillable = ['name', 'slug'];
 }
