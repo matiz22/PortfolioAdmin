@@ -10,6 +10,7 @@ return new class extends Migration {
         Schema::create('skills', function (Blueprint $table) {
             $table->id();
             $table->json('name');
+            $table->string('icon')->nullable();
             $table->foreignId('proficiency_id')->nullable()->constrained('proficiencies');
             $table->timestamps();
         });
