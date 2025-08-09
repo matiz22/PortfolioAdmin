@@ -13,7 +13,7 @@ trait ManagesFileUploads
     /**
      * Boot the trait - this method is automatically called by Eloquent
      */
-    protected static function bootManagesFileUploads()
+    protected static function bootManagesFileUploads(): void
     {
         // Register model events
         static::deleting(function ($model) {
