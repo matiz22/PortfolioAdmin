@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\SocialLinkResource\Pages;
-use App\Filament\Resources\SocialLinkResource\RelationManagers;
 use App\Models\SocialLink;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -49,7 +48,6 @@ class SocialLinkResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-
                 Tables\Columns\TextColumn::make('order')
                     ->numeric()
                     ->sortable(),
