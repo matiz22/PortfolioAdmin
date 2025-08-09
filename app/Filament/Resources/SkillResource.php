@@ -11,6 +11,7 @@ use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Storage;
 
 class SkillResource extends Resource
 {
@@ -25,10 +26,18 @@ class SkillResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Textarea::make('name')
-                    ->required()
-                    ->columnSpanFull(),
+                    ->required(),
                 Forms\Components\Select::make('proficiency_id')
                     ->relationship('proficiency', 'name'),
+                Forms\Components\FileUpload::make('icon')
+                    ->image()
+                    ->directory('icons')
+                    ->visibility('public')
+                    ->deleteUploadedFileUsing(function ($file) {
+                        if (Storage::exists($file)) {
+                            Storage::delete($file);
+                        }
+                    }),
             ]);
     }
 
