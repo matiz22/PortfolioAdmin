@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\HasDisplayOrder;
 use Illuminate\Database\Eloquent\Model;
 
 class SocialLink extends Model
 {
+    use HasDisplayOrder;
     /**
      * The attributes that are mass assignable.
      */
@@ -24,20 +26,4 @@ class SocialLink extends Model
         'is_visible' => 'boolean',
         'order' => 'integer',
     ];
-
-    /**
-     * Scope to only visible social links.
-     */
-    public function scopeVisible($query)
-    {
-        return $query->where('is_visible', true);
-    }
-
-    /**
-     * Scope to order social links by display order.
-     */
-    public function scopeOrdered($query)
-    {
-        return $query->orderBy('order');
-    }
 }

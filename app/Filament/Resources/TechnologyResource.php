@@ -26,6 +26,8 @@ class TechnologyResource extends Resource
                     ->required(),
                 Forms\Components\Select::make('proficiency_id')
                     ->relationship('proficiency', 'name'),
+                Forms\Components\TextInput::make('order')
+                    ->numeric(),
                 Forms\Components\FileUpload::make('icon')
                     ->image()
                     ->directory('icons')
@@ -43,6 +45,8 @@ class TechnologyResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('order')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('proficiency.name')
                     ->numeric()
