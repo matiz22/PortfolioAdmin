@@ -3,6 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\JobResource\Pages;
+use App\Filament\Resources\JobResource\RelationManagers\SkillsRelationManager;
+use App\Filament\Resources\ProjectResource\RelationManagers\TechnologiesRelationManager;
 use App\Models\Job;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -86,7 +88,8 @@ class JobResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            SkillsRelationManager::class,
+            TechnologiesRelationManager::class,
         ];
     }
 
