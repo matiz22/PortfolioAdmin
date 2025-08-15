@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\RelationManagers\TechnologiesRelationManager;
 use App\Filament\Resources\ProjectResource\Pages;
-use App\Filament\Resources\ProjectResource\RelationManagers\TechnologiesRelationManager;
 use App\Models\Project;
 use Filament\Forms;
 use Filament\Forms\Form;

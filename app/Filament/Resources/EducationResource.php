@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\RelationManagers\SkillsRelationManager;
+use App\Filament\RelationManagers\TechnologiesRelationManager;
 use App\Filament\Resources\EducationResource\Pages;
-use App\Filament\Resources\EducationResource\RelationManagers\SkillsRelationManager;
-use App\Filament\Resources\JobResource\RelationManagers\TechnologiesRelationManager;
 use App\Models\Education;
 use Filament\Forms;
 use Filament\Forms\Form;
