@@ -27,7 +27,8 @@ class TechnologyResource extends Resource
                 Forms\Components\Select::make('proficiency_id')
                     ->relationship('proficiency', 'name'),
                 Forms\Components\TextInput::make('order')
-                    ->numeric(),
+                    ->numeric()
+                    ->default(1),
                 Forms\Components\FileUpload::make('icon')
                     ->image()
                     ->directory('icons')
