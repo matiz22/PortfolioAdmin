@@ -3,6 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\EducationResource\Pages;
+use App\Filament\Resources\EducationResource\RelationManagers\SkillsRelationManager;
+use App\Filament\Resources\JobResource\RelationManagers\TechnologiesRelationManager;
 use App\Models\Education;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -28,11 +30,18 @@ class EducationResource extends Resource
                     ->required()
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('degree')
-                    ->required()
-                    ->columnSpanFull(),
+                    ->required(),
                 Forms\Components\Textarea::make('field_of_study')
-                    ->required()
-                    ->columnSpanFull(),
+                    ->required(),
+                Forms\Components\Select::make('skills')
+                    ->label('Skills')
+                    ->multiple()
+                    ->relationship('skills', 'name')
+                    ->searchable(),
+                Forms\Components\Select::make('technologies')
+                    ->label('Technologies')
+                    ->multiple()
+                    ->relationship('technologies', 'name'),
                 Forms\Components\MarkdownEditor::make('description')
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('grade'),
@@ -90,7 +99,8 @@ class EducationResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            TechnologiesRelationManager::class,
+            SkillsRelationManager::class,
         ];
     }
 
