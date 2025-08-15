@@ -27,7 +27,7 @@ class ProjectResource extends Resource
                 Forms\Components\Textarea::make('title')
                     ->required()
                     ->columnSpanFull(),
-                Forms\Components\Textarea::make('description')
+                Forms\Components\MarkdownEditor::make('description')
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('slug')
                     ->required(),
@@ -38,6 +38,12 @@ class ProjectResource extends Resource
                     ->required()
                     ->numeric()
                     ->default(0),
+                Forms\Components\FileUpload::make('screenshots')
+                    ->multiple()
+                    ->image()
+                    ->directory('screenshots')
+                    ->visibility('public')
+                    ->columnSpanFull(),
             ]);
     }
 

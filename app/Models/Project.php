@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use App\Traits\HasDisplayOrder;
+use App\Traits\ManagesMultipleFileUploads;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Translatable\HasTranslations;
 
 class Project extends Model
 {
-    use HasDisplayOrder, HasTranslations;
+    use HasDisplayOrder, HasTranslations, ManagesMultipleFileUploads;
 
     public array $translatable = ['title', 'description'];
     protected $fillable = [
@@ -22,11 +23,16 @@ class Project extends Model
         'start_date',
         'end_date',
         'order',
+        'screenshots',
     ];
+
+    protected array $filesFields = ['screenshots'];
+
     protected $casts = [
         'start_date' => 'date',
         'end_date' => 'date',
         'order' => 'integer',
+        'screenshots' => 'array',
     ];
 
     public function tags(): BelongsToMany
