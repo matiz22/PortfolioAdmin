@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\RelationManagers\SkillsRelationManager;
+use App\Filament\RelationManagers\TechnologiesRelationManager;
 use App\Filament\Resources\CertificationResource\Pages;
 use App\Models\Certification;
 use Filament\Forms;
@@ -37,6 +39,15 @@ class CertificationResource extends Resource
                     ->required()
                     ->numeric()
                     ->default(0),
+                Forms\Components\Select::make('skills')
+                    ->label('Skills')
+                    ->multiple()
+                    ->relationship('skills', 'name')
+                    ->searchable(),
+                Forms\Components\Select::make('technologies')
+                    ->label('Technologies')
+                    ->multiple()
+                    ->relationship('technologies', 'name'),
                 Forms\Components\MarkdownEditor::make('description')
                     ->columnSpanFull(),
             ]);
@@ -86,7 +97,8 @@ class CertificationResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            TechnologiesRelationManager::class,
+            SkillsRelationManager::class
         ];
     }
 
