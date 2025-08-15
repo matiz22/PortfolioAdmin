@@ -27,20 +27,30 @@ class JobResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('company_name')
                     ->required(),
+                Forms\Components\TextInput::make('location'),
                 Forms\Components\Textarea::make('title')
                     ->required()
                     ->columnSpanFull(),
                 Forms\Components\DatePicker::make('start_date'),
                 Forms\Components\DatePicker::make('end_date'),
-                Forms\Components\TextInput::make('location'),
                 Forms\Components\Toggle::make('is_current')
                     ->required(),
-                Forms\Components\MarkdownEditor::make('description')
-                    ->columnSpanFull(),
                 Forms\Components\TextInput::make('order')
                     ->required()
                     ->numeric()
                     ->default(0),
+                Forms\Components\Select::make('skills')
+                    ->label('Skills')
+                    ->multiple()
+                    ->relationship('skills', 'name')
+                    ->searchable(),
+                Forms\Components\Select::make('technologies')
+                    ->label('Technologies')
+                    ->multiple()
+                    ->relationship('technologies', 'name'),
+                Forms\Components\MarkdownEditor::make('description')
+                    ->columnSpanFull(),
+
             ]);
     }
 
