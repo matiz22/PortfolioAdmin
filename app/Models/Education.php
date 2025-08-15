@@ -1,0 +1,55 @@
+<?php
+
+namespace App\Models;
+
+use App\Traits\HasDisplayOrder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\Translatable\HasTranslations;
+
+class Education extends Model
+{
+    use HasDisplayOrder, HasTranslations;
+
+    public array $translatable = [
+        'institution',
+        'degree',
+        'field_of_study',
+        'description',
+    ];
+
+    protected $fillable = [
+        'institution',
+        'degree',
+        'field_of_study',
+        'grade',
+        'start_date',
+        'end_date',
+        'is_current',
+        'description',
+        'order',
+    ];
+
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+        'is_current' => 'boolean',
+        'order' => 'integer',
+    ];
+
+    /**
+     * Many-to-many relation to skills
+     */
+    public function skills(): BelongsToMany
+    {
+        return $this->belongsToMany(Skill::class, 'education_skill');
+    }
+
+    /**
+     * Many-to-many relation to technologies
+     */
+    public function technologies(): BelongsToMany
+    {
+        return $this->belongsToMany(Technology::class, 'education_technology');
+    }
+}
