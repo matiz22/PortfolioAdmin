@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\HasDisplayOrder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Translatable\HasTranslations;
 
 class Job extends Model
@@ -36,7 +37,7 @@ class Job extends Model
     /**
      * Many-to-many relation to Skills
      */
-    public function skills()
+    public function skills(): BelongsToMany
     {
         return $this->belongsToMany(Skill::class, 'job_skill');
     }
@@ -44,7 +45,7 @@ class Job extends Model
     /**
      * Many-to-many relation to Technologies
      */
-    public function technologies()
+    public function technologies(): BelongsToMany
     {
         return $this->belongsToMany(Technology::class, 'job_technology');
     }
