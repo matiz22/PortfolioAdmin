@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EducationApi;
 use App\Http\Controllers\JobsApi;
 use App\Http\Controllers\ProficienciesApi;
 use App\Http\Controllers\ProjectsApi;
@@ -82,6 +83,17 @@ Route::prefix('v1')->group(function () {
             Route::get('/', [JobsApi::class, 'allTranslated']);
             Route::get('{id}', [JobsApi::class, 'translated'])->where('id', '[0-9]+');
             Route::get('/ordered', [JobsApi::class, 'orderedTranslated']);
+        });
+    });
+
+    Route::prefix('education')->group(function () {
+        Route::get('/', [EducationApi::class, 'all']);
+        Route::get('{id}', [EducationApi::class, 'byId'])->where('id', '[0-9]+');
+        Route::get('/ordered', [EducationApi::class, 'ordered']);
+        Route::prefix('translated')->group(function () {
+            Route::get('/', [EducationApi::class, 'allTranslated']);
+            Route::get('{id}', [EducationApi::class, 'translated'])->where('id', '[0-9]+');
+            Route::get('/ordered', [EducationApi::class, 'orderedTranslated']);
         });
     });
 
