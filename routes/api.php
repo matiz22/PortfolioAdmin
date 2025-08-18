@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CertificationsApi;
 use App\Http\Controllers\EducationApi;
 use App\Http\Controllers\JobsApi;
 use App\Http\Controllers\ProficienciesApi;
@@ -94,6 +95,17 @@ Route::prefix('v1')->group(function () {
             Route::get('/', [EducationApi::class, 'allTranslated']);
             Route::get('{id}', [EducationApi::class, 'translated'])->where('id', '[0-9]+');
             Route::get('/ordered', [EducationApi::class, 'orderedTranslated']);
+        });
+    });
+
+    Route::prefix('certifications')->group(function () {
+        Route::get('/', [CertificationsApi::class, 'all']);
+        Route::get('{id}', [CertificationsApi::class, 'byId'])->where('id', '[0-9]+');
+        Route::get('/ordered', [CertificationsApi::class, 'ordered']);
+        Route::prefix('translated')->group(function () {
+            Route::get('/', [CertificationsApi::class, 'allTranslated']);
+            Route::get('{id}', [CertificationsApi::class, 'translated'])->where('id', '[0-9]+');
+            Route::get('/ordered', [CertificationsApi::class, 'orderedTranslated']);
         });
     });
 
