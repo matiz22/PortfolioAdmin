@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JobsApi;
 use App\Http\Controllers\ProficienciesApi;
 use App\Http\Controllers\ProjectsApi;
 use App\Http\Controllers\RealizationsApi;
@@ -70,6 +71,17 @@ Route::prefix('v1')->group(function () {
             Route::get('/', [ProjectsApi::class, 'allTranslated']);
             Route::get('{id}', [ProjectsApi::class, 'translated'])->where('id', '[0-9]+');
             Route::get('/ordered', [ProjectsApi::class, 'orderedTranslated']);
+        });
+    });
+
+    Route::prefix('jobs')->group(function () {
+        Route::get('/', [JobsApi::class, 'all']);
+        Route::get('{id}', [JobsApi::class, 'byId'])->where('id', '[0-9]+');
+        Route::get('/ordered', [JobsApi::class, 'ordered']);
+        Route::prefix('translated')->group(function () {
+            Route::get('/', [JobsApi::class, 'allTranslated']);
+            Route::get('{id}', [JobsApi::class, 'translated'])->where('id', '[0-9]+');
+            Route::get('/ordered', [JobsApi::class, 'orderedTranslated']);
         });
     });
 
