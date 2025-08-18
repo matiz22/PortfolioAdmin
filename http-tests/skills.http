@@ -1,0 +1,17 @@
+### api/v1/skills
+GET http://127.0.0.1:8000/api/v1/skills
+
+### api/v1/skills/{id}
+GET http://127.0.0.1:8000/api/v1/skills/2
+
+### api/v1/skills/ordered
+GET http://127.0.0.1:8000/api/v1/skills/ordered
+
+### api/v1/skills/translated/
+GET http://127.0.0.1:8000/api/v1/skills/translated/
+
+### api/v1/skills/translated/{id}
+GET http://127.0.0.1:8000/api/v1/skills/translated/2
+
+### api/v1/skills/translated/ordered
+GET http://127.0.0.1:8000/api/v1/skills/translated/ordered

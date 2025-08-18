@@ -1,0 +1,16 @@
+
+### api/v1/proficiencies
+GET http://127.0.0.1:8000/api/v1/proficiencies
+
+<> 2025-08-18T130257.200.json
+
+### api/v1/proficiencies/{id}
+GET http://127.0.0.1:8000/api/v1/proficiencies/1
+
+<> 2025-08-18T130252.200.json
+
+### api/v1/proficiencies/translated/
+GET http://127.0.0.1:8000/api/v1/proficiencies/translated/
+
+### api/v1/proficiencies/translated/{id}
+GET http://127.0.0.1:8000/api/v1/proficiencies/translated/1
