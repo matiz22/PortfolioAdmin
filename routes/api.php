@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProficienciesApi;
+use App\Http\Controllers\RealizationsApi;
 use App\Http\Controllers\SkillsApi;
 use App\Http\Controllers\SocialLinksApi;
 use App\Http\Controllers\TechnologiesApi;
@@ -46,6 +47,17 @@ Route::prefix('v1')->group(function () {
             Route::get('/', [SocialLinksApi::class, 'allTranslated']);
             Route::get('{id}', [SocialLinksApi::class, 'translated'])->where('id', '[0-9]+');
             Route::get('/ordered', [SocialLinksApi::class, 'orderedTranslated']);
+        });
+    });
+
+    Route::prefix('realization')->group(function () {
+        Route::get('/', [RealizationsApi::class, 'all']);
+        Route::get('{id}', [RealizationsApi::class, 'byId'])->where('id', '[0-9]+');
+        Route::get('/ordered', [RealizationsApi::class, 'ordered']);
+        Route::prefix('translated')->group(function () {
+            Route::get('/', [RealizationsApi::class, 'allTranslated']);
+            Route::get('{id}', [RealizationsApi::class, 'translated'])->where('id', '[0-9]+');
+            Route::get('/ordered', [RealizationsApi::class, 'orderedTranslated']);
         });
     });
 
