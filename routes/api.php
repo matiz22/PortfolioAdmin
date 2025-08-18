@@ -1,0 +1,27 @@
+<?php
+
+use App\Http\Controllers\ProficienciesApi;
+use App\Http\Controllers\SkillsApi;
+use Illuminate\Support\Facades\Route;
+
+Route::prefix('v1')->group(function () {
+    Route::prefix('proficiencies')->group(function () {
+        Route::get('/', [ProficienciesApi::class, 'all']);
+        Route::get('{id}', [ProficienciesApi::class, 'byId'])->where('id', '[0-9]+');
+        Route::prefix('translated')->group(function () {
+            Route::get('/', [ProficienciesApi::class, 'allTranslated']);
+            Route::get('{id}', [ProficienciesApi::class, 'translated'])->where('id', '[0-9]+');
+        });
+    });
+
+    Route::prefix('skills')->group(function () {
+        Route::get('/', [SkillsApi::class, 'all']);
+        Route::get('{id}', [SkillsApi::class, 'byId'])->where('id', '[0-9]+');
+        Route::get('/ordered', [SkillsApi::class, 'ordered']);
+        Route::prefix('translated')->group(function () {
+            Route::get('/', [SkillsApi::class, 'allTranslated']);
+            Route::get('{id}', [SkillsApi::class, 'translated'])->where('id', '[0-9]+');
+            Route::get('/ordered', [SkillsApi::class, 'orderedTranslated']);
+        });
+    });
+});
