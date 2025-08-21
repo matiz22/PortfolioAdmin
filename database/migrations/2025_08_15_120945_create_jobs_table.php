@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('jobs', function (Blueprint $table) {
+        Schema::create('job_listings', function (Blueprint $table) {
             $table->id();
             $table->string('company_name');
             $table->json('title');
@@ -23,16 +23,16 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('job_skill', function (Blueprint $table) {
+        Schema::create('job_listing_skill', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('job_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('job_listing_id')->constrained()->cascadeOnDelete();
             $table->foreignId('skill_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
 
-        Schema::create('job_technology', function (Blueprint $table) {
+        Schema::create('job_listing_technology', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('job_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('job_listing_id')->constrained()->cascadeOnDelete();
             $table->foreignId('technology_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
@@ -43,8 +43,8 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('job_technology');
-        Schema::dropIfExists('job_skill');
-        Schema::dropIfExists('jobs');
+        Schema::dropIfExists('job_listing_technology');
+        Schema::dropIfExists('job_listing_skill');
+        Schema::dropIfExists('job_listings');
     }
 };

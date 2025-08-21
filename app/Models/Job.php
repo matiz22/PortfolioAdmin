@@ -11,6 +11,8 @@ class Job extends Model
 {
     use HasDisplayOrder, HasTranslations;
 
+    public $table = 'job_listings';
+
     public array $translatable = [
         'title',
         'description',
