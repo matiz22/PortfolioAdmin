@@ -6,9 +6,8 @@ use App\Models\Certification;
 
 class CertificationsService extends OrderedService
 {
-
-    protected function getModelClass(): string
+    public function __construct()
     {
-        return Certification::class;
+        parent::__construct(Certification::class, ['technologies', 'skills']);
     }
 }

@@ -7,8 +7,8 @@ use App\Models\Education;
 class EducationService extends OrderedService
 {
 
-    protected function getModelClass(): string
+    public function __construct()
     {
-        return Education::class;
+        parent::__construct(Education::class, ['technologies', 'skills']);
     }
 }

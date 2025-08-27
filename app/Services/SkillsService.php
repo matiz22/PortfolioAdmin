@@ -6,9 +6,8 @@ use App\Models\Skill;
 
 class SkillsService extends OrderedService
 {
-
-    protected function getModelClass(): string
+    public function __construct()
     {
-        return Skill::class;
+        parent::__construct(Skill::class, ['proficiencies']);
     }
 }

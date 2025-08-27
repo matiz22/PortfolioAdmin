@@ -6,8 +6,8 @@ use App\Models\Proficiency;
 
 class ProficienciesService extends BaseService
 {
-    protected function getModelClass(): string
+    public function __construct()
     {
-        return Proficiency::class;
+        parent::__construct(Proficiency::class);
     }
 }

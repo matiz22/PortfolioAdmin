@@ -6,9 +6,8 @@ use App\Models\SocialLink;
 
 class SocialLinksService extends OrderedService
 {
-
-    protected function getModelClass(): string
+    public function __construct()
     {
-        return SocialLink::class;
+        parent::__construct(SocialLink::class);
     }
 }

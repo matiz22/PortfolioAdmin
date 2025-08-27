@@ -6,12 +6,8 @@ use App\Models\Technology;
 
 class TechnologiesService extends OrderedService
 {
-
-    /**
-     * @inheritDoc
-     */
-    protected function getModelClass(): string
+    public function __construct()
     {
-        return Technology::class;
+        parent::__construct(Technology::class, ['proficiencies']);
     }
 }

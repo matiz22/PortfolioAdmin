@@ -6,9 +6,8 @@ use App\Models\Job;
 
 class JobsService extends OrderedService
 {
-
-    protected function getModelClass(): string
+    public function __construct()
     {
-        return Job::class;
+        parent::__construct(Job::class, ['technologies', 'skills']);
     }
 }
