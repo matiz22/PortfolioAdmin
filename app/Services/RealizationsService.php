@@ -6,9 +6,8 @@ use App\Models\Realization;
 
 class RealizationsService extends OrderedService
 {
-
-    protected function getModelClass(): string
+    public function __construct()
     {
-        return Realization::class;
+        parent::__construct(Realization::class, ['technologies', 'skills']);
     }
 }
