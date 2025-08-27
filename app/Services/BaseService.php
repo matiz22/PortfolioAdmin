@@ -10,6 +10,11 @@ use Illuminate\Database\Eloquent\Model;
 abstract class BaseService
 {
 
+    /**
+     * The model class name.
+     *
+     * @var class-string<Model>
+     */
     protected string $modelClass;
 
     protected array $relations;
@@ -34,7 +39,7 @@ abstract class BaseService
      */
     public function getById(int $id): ?Model
     {
-        return $this->getModelClass()::find($id);
+        return $this->modelClass::find($id);
     }
 
 
