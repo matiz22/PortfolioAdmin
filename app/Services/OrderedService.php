@@ -14,6 +14,6 @@ abstract class OrderedService extends BaseService
 
     public function getAllOrdered(): Collection
     {
-        return $this->getModelClass()::ordered()->get();
+        return $this->modelClass::with($this->relations)->ordered()->get();
     }
 }

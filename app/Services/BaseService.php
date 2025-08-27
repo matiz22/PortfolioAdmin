@@ -9,6 +9,18 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class BaseService
 {
+
+    protected string $modelClass;
+
+    protected array $relations;
+
+    public function __construct(string $modelClass, array $relations = [])
+    {
+        $this->modelClass = $modelClass;
+        $this->relations = $relations;
+    }
+
+
     public function getByIdTranslated(int $id): ?array
     {
         return Translatable::translateModel($this->getById($id));
@@ -25,12 +37,6 @@ abstract class BaseService
         return $this->getModelClass()::find($id);
     }
 
-    /**
-     * Get the model class name.
-     *
-     * @return class-string<Model>
-     */
-    protected abstract function getModelClass(): string;
 
     /**
      * Get all models translated (if the model supports translation).
@@ -49,7 +55,7 @@ abstract class BaseService
      */
     public function getAll(): Collection
     {
-        return $this->getModelClass()::all();
+        return $this->modelClass::with($this->relations)->get();
     }
 
 
