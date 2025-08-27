@@ -6,9 +6,8 @@ use App\Models\Project;
 
 class ProjectsService extends OrderedService
 {
-
-    protected function getModelClass(): string
+    public function __construct()
     {
-        return Project::class;
+        parent::__construct(Project::class, ['technologies']);
     }
 }
