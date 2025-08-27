@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Collection;
 
 abstract class OrderedService extends BaseService
 {
+    public function __construct(string $modelClass, array $relations = [])
+    {
+        parent::__construct($modelClass, $relations);
+    }
+
     public function getAllOrderedTranslated(): array
     {
         return Translatable::translateCollection($this->getAllOrdered());
