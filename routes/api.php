@@ -24,11 +24,9 @@ Route::prefix('v1')->group(function () {
     Route::prefix('skills')->group(function () {
         Route::get('/', [SkillsApi::class, 'all']);
         Route::get('{id}', [SkillsApi::class, 'byId'])->where('id', '[0-9]+');
-        Route::get('/ordered', [SkillsApi::class, 'ordered']);
         Route::prefix('translated')->group(function () {
             Route::get('/', [SkillsApi::class, 'allTranslated']);
             Route::get('{id}', [SkillsApi::class, 'translated'])->where('id', '[0-9]+');
-            Route::get('/ordered', [SkillsApi::class, 'orderedTranslated']);
         });
     });
 

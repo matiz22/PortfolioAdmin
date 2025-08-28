@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Skill;
 
-class SkillsService extends OrderedService
+class SkillsService extends BaseService
 {
     public function __construct()
     {
