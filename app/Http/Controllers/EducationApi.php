@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\BaseService;
 use App\Services\EducationService;
-use App\Services\OrderedService;
 
-class EducationApi extends OrderedController
+
+class EducationApi extends BaseController
 {
-    protected OrderedService $orderedService;
+    protected BaseService $orderedService;
 
     public function __construct(EducationService $service)
     {

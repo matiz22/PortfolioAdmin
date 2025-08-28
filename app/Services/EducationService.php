@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Education;
 
-class EducationService extends OrderedService
+class EducationService extends BaseService
 {
 
     public function __construct()
