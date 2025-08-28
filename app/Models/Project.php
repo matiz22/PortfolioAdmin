@@ -24,6 +24,8 @@ class Project extends Model
         'end_date',
         'order',
         'screenshots',
+        'home_page',
+        'short_desc',
     ];
 
     protected array $filesFields = ['screenshots'];
@@ -33,6 +35,7 @@ class Project extends Model
         'end_date' => 'date',
         'order' => 'integer',
         'screenshots' => 'array',
+        'home_page' => 'boolean',
     ];
 
     public function tags(): BelongsToMany

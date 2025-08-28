@@ -28,6 +28,9 @@ class ProjectResource extends Resource
                 Forms\Components\Textarea::make('title')
                     ->required()
                     ->columnSpanFull(),
+                Forms\Components\Textarea::make('short_desc')
+                    ->required()
+                    ->columnSpanFull(),
                 Forms\Components\MarkdownEditor::make('description')
                     ->columnSpanFull(),
                 Forms\Components\Select::make('technologies')
@@ -44,6 +47,11 @@ class ProjectResource extends Resource
                     ->required()
                     ->numeric()
                     ->default(0),
+                Forms\Components\Toggle::make('home_page')
+                    ->label('Show on Home Page')
+                    ->default(false),
+                Forms\Components\Toggle::make('published')
+                    ->default(false),
                 Forms\Components\FileUpload::make('screenshots')
                     ->multiple()
                     ->image()
