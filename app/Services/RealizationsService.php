@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Realization;
 
-class RealizationsService extends OrderedService
+class RealizationsService extends BaseService
 {
     public function __construct()
     {
