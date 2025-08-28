@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Job;
 
-class JobsService extends OrderedService
+class JobsService extends BaseService
 {
     public function __construct()
     {
