@@ -68,11 +68,9 @@ Route::prefix('v1')->group(function () {
     Route::prefix('projects')->group(function () {
         Route::get('/', [ProjectsApi::class, 'all']);
         Route::get('{id}', [ProjectsApi::class, 'byId'])->where('id', '[0-9]+');
-        Route::get('/ordered', [ProjectsApi::class, 'ordered']);
         Route::prefix('translated')->group(function () {
             Route::get('/', [ProjectsApi::class, 'allTranslated']);
             Route::get('{id}', [ProjectsApi::class, 'translated'])->where('id', '[0-9]+');
-            Route::get('/ordered', [ProjectsApi::class, 'orderedTranslated']);
         });
     });
 
