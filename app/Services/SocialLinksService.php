@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\SocialLink;
 
-class SocialLinksService extends OrderedService
+class SocialLinksService extends BaseService
 {
     public function __construct()
     {
