@@ -40,9 +40,12 @@ class ProjectResource extends Resource
                     ->searchable(),
                 Forms\Components\TextInput::make('slug')
                     ->required(),
-                Forms\Components\TextInput::make('thumbnail_url'),
-                Forms\Components\TextInput::make('live_url'),
-                Forms\Components\TextInput::make('repo_url'),
+                Forms\Components\TextInput::make('thumbnail_url')
+                    ->url(),
+                Forms\Components\TextInput::make('live_url')
+                    ->url(),
+                Forms\Components\TextInput::make('repo_url')
+                    ->url(),
                 Forms\Components\TextInput::make('order')
                     ->required()
                     ->numeric()
