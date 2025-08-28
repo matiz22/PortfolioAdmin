@@ -349,20 +349,6 @@ CREATE TABLE IF NOT EXISTS "social_links"(
   "updated_at"
   datetime
 );
-CREATE TABLE IF NOT EXISTS "projects"(
-  "id" integer primary key autoincrement not null,
-  "title" text not null,
-  "slug" varchar not null,
-  "thumbnail_url" varchar,
-  "live_url" varchar,
-  "repo_url" varchar,
-  "description" text,
-  "order" integer not null default '0',
-  "created_at" datetime,
-  "updated_at" datetime,
-  "screenshots" varchar
-);
-CREATE UNIQUE INDEX "projects_slug_unique" on "projects"("slug");
 CREATE TABLE IF NOT EXISTS "project_technology"(
   "id" integer primary key autoincrement not null,
   "project_id" integer not null,
@@ -497,6 +483,39 @@ CREATE TABLE IF NOT EXISTS "realization_technology"(
   foreign key("realization_id") references "realizations"("id") on delete cascade,
   foreign key("technology_id") references "technologies"("id") on delete cascade
 );
+CREATE TABLE IF NOT EXISTS "projects"(
+  "id" integer primary key autoincrement not null,
+  "title" text not null,
+  "short_desc" text,
+  "home_page" tinyint(1) not null default '0',
+  "published" tinyint(1) not null default '0',
+  "slug" varchar not null,
+  "thumbnail_url" varchar,
+  "live_url" varchar,
+  "repo_url" varchar,
+  "description" text,
+  "order" integer not null default('0'),
+  "created_at" datetime,
+  "updated_at" datetime,
+  "screenshots" varchar
+);
+CREATE UNIQUE INDEX "projects_slug_unique" on "projects"("slug");
+CREATE TABLE IF NOT EXISTS "__temp__projects"(
+  "id" integer primary key autoincrement not null,
+  "title" text not null,
+  "slug" varchar not null,
+  "thumbnail_url" varchar,
+  "live_url" varchar,
+  "repo_url" varchar,
+  "description" text,
+  "order" integer not null default('0'),
+  "created_at" datetime,
+  "updated_at" datetime,
+  "screenshots" varchar,
+  "home_page" tinyint(1) not null default('0'),
+  "published" tinyint(1) not null default('0'),
+  "short_desc" text not null
+);
 
 INSERT INTO migrations VALUES(1,'0001_01_01_000000_create_users_table',1);
 INSERT INTO migrations VALUES(2,'0001_01_01_000001_create_cache_table',1);
@@ -513,3 +532,4 @@ INSERT INTO migrations VALUES(23,'2025_08_15_120945_create_jobs_table',5);
 INSERT INTO migrations VALUES(24,'2025_08_15_131932_create_education_table',5);
 INSERT INTO migrations VALUES(25,'2025_08_15_140153_create_certifications_table',5);
 INSERT INTO migrations VALUES(26,'2025_08_15_144459_create_realizations_table',5);
+INSERT INTO migrations VALUES(32,'2025_08_28_115348_add_on_main_page_and_short_desc',6);
