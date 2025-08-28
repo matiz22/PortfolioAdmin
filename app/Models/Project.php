@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HasDisplayOrder;
+use App\Traits\HasPublishedField;
 use App\Traits\ManagesMultipleFileUploads;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -10,7 +11,11 @@ use Spatie\Translatable\HasTranslations;
 
 class Project extends Model
 {
-    use HasDisplayOrder, HasTranslations, ManagesMultipleFileUploads;
+    use
+        HasDisplayOrder,
+        HasTranslations,
+        ManagesMultipleFileUploads,
+        HasPublishedField;
 
     public array $translatable = ['title', 'description'];
     protected $fillable = [
@@ -26,6 +31,7 @@ class Project extends Model
         'screenshots',
         'home_page',
         'short_desc',
+        'published',
     ];
 
     protected array $filesFields = ['screenshots'];
@@ -36,6 +42,7 @@ class Project extends Model
         'order' => 'integer',
         'screenshots' => 'array',
         'home_page' => 'boolean',
+        'published' => 'boolean'
     ];
 
     public function tags(): BelongsToMany
