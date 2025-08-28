@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Certification;
 
-class CertificationsService extends OrderedService
+class CertificationsService extends BaseService
 {
     public function __construct()
     {

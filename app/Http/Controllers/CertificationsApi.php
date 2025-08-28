@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\EducationService;
-use App\Services\OrderedService;
+use App\Services\BaseService;
+use App\Services\CertificationsService;
 
-class CertificationsApi extends OrderedController
+class CertificationsApi extends BaseController
 {
-    protected OrderedService $orderedService;
+    protected BaseService $orderedService;
 
-    public function __construct(EducationService $service)
+    public function __construct(CertificationsService $service)
     {
         parent::__construct($service);
     }

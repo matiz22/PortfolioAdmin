@@ -99,11 +99,9 @@ Route::prefix('v1')->group(function () {
     Route::prefix('certifications')->group(function () {
         Route::get('/', [CertificationsApi::class, 'all']);
         Route::get('{id}', [CertificationsApi::class, 'byId'])->where('id', '[0-9]+');
-        Route::get('/ordered', [CertificationsApi::class, 'ordered']);
         Route::prefix('translated')->group(function () {
             Route::get('/', [CertificationsApi::class, 'allTranslated']);
             Route::get('{id}', [CertificationsApi::class, 'translated'])->where('id', '[0-9]+');
-            Route::get('/ordered', [CertificationsApi::class, 'orderedTranslated']);
         });
     });
 
