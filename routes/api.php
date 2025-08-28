@@ -35,11 +35,9 @@ Route::prefix('v1')->group(function () {
     Route::prefix('technologies')->group(function () {
         Route::get('/', [TechnologiesApi::class, 'all']);
         Route::get('{id}', [TechnologiesApi::class, 'byId'])->where('id', '[0-9]+');
-        Route::get('/ordered', [TechnologiesApi::class, 'ordered']);
         Route::prefix('translated')->group(function () {
             Route::get('/', [TechnologiesApi::class, 'allTranslated']);
             Route::get('{id}', [TechnologiesApi::class, 'translated'])->where('id', '[0-9]+');
-            Route::get('/ordered', [TechnologiesApi::class, 'orderedTranslated']);
         });
     });
 

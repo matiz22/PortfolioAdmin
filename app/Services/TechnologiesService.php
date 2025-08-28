@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Technology;
 
-class TechnologiesService extends OrderedService
+class TechnologiesService extends BaseService
 {
     public function __construct()
     {
