@@ -3,10 +3,13 @@
 namespace App\Services;
 
 use App\Models\Project;
-use Illuminate\Database\Eloquent\Collection;
+use App\Services\Contracts\HomeCollections;
+use App\Traits\GetHomePageItems;
 
-class ProjectsService extends BaseService
+class ProjectsService extends BaseService implements HomeCollections
 {
+    use GetHomePageItems;
+
     public function __construct()
     {
         parent::__construct(Project::class, ['technologies']);
