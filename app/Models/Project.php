@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\HasDisplayOrder;
 use App\Traits\HasPublishedField;
+use App\Traits\ManagesFileUploads;
 use App\Traits\ManagesMultipleFileUploads;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -15,13 +16,14 @@ class Project extends Model
         HasDisplayOrder,
         HasTranslations,
         ManagesMultipleFileUploads,
-        HasPublishedField;
+        HasPublishedField,
+        ManagesFileUploads;
 
     public array $translatable = ['title', 'description'];
     protected $fillable = [
         'title',
         'slug',
-        'thumbnail_url',
+        'thumbnail',
         'live_url',
         'repo_url',
         'description',
@@ -35,6 +37,7 @@ class Project extends Model
     ];
 
     protected array $filesFields = ['screenshots'];
+    protected array $fileFields = ['thumbnail'];
 
     protected $casts = [
         'start_date' => 'date',
