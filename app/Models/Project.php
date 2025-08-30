@@ -19,7 +19,7 @@ class Project extends Model
         HasPublishedField,
         ManagesFileUploads;
 
-    public array $translatable = ['title', 'description'];
+    public array $translatable = ['title', 'description', 'short_desc'];
     protected $fillable = [
         'title',
         'slug',
