@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HasDisplayOrder;
+use App\Traits\HasPublishedField;
 use App\Traits\ManagesFileUploads;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -10,7 +11,11 @@ use Spatie\Translatable\HasTranslations;
 
 class Realization extends Model
 {
-    use HasDisplayOrder, HasTranslations, ManagesFileUploads;
+    use
+        HasDisplayOrder,
+        HasTranslations,
+        ManagesFileUploads,
+        HasPublishedField;
 
     public array $translatable = [
         'title',
@@ -35,6 +40,8 @@ class Realization extends Model
 
     protected $casts = [
         'order' => 'integer',
+        'published' => 'boolean',
+        'home_page' => 'boolean',
     ];
 
     /**

@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Services\BaseService;
+use App\Services\Contracts\HomeCollections;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
 abstract class BaseController extends Controller
 {
-    protected BaseService $service;
+    protected BaseService|HomeCollections $service;
 
     public function __construct(BaseService $service)
     {
