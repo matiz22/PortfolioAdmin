@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use App\Traits\HasDisplayOrder;
+use App\Traits\ManagesFileUploads;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Translatable\HasTranslations;
 
 class Realization extends Model
 {
-    use HasDisplayOrder, HasTranslations;
+    use HasDisplayOrder, HasTranslations, ManagesFileUploads;
 
     public array $translatable = [
         'title',
@@ -20,12 +21,17 @@ class Realization extends Model
         'title',
         'client_name',
         'client_url',
-        'client_logo_url',
+        'client_logo',
         'location',
-        'thumbnail_url',
+        'thumbnail',
         'description',
         'order',
+        'published',
+        'home_page',
+        'short_desc',
     ];
+
+    protected array $fileFields = ['thumbnail ', 'client_logo'];
 
     protected $casts = [
         'order' => 'integer',

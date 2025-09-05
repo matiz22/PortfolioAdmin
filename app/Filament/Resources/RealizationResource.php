@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\RelationManagers\SkillsRelationManager;
+use App\Filament\RelationManagers\TechnologiesRelationManager;
 use App\Filament\Resources\RealizationResource\Pages;
 use App\Models\Realization;
 use Filament\Forms;
@@ -27,20 +29,42 @@ class RealizationResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('client_name')
                     ->required(),
+                Forms\Components\Textarea::make('short_desc')
+                    ->required()
+                    ->columnSpanFull(),
+                Forms\Components\FileUpload::make('client_logo')
+                    ->image()
+                    ->directory('clients')
+                    ->visibility('public'),
+                Forms\Components\FileUpload::make('thumbnail')
+                    ->image()
+                    ->directory('thumbnails')
+                    ->visibility('public'),
                 Forms\Components\TextInput::make('client_url')
                     ->url(),
-                Forms\Components\TextInput::make('client_logo_url')
-                    ->url(),
                 Forms\Components\TextInput::make('location'),
-                Forms\Components\TextInput::make('thumbnail_url')
-                    ->url(),
+                Forms\Components\Select::make('technologies')
+                    ->relationship('technologies', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->searchable(),
+                Forms\Components\Select::make('skills')
+                    ->relationship('skills', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->searchable(),
+                Forms\Components\Toggle::make('home_page')
+                    ->label('Show on Home Page')
+                    ->default(false),
+                Forms\Components\Toggle::make('published')
+                    ->default(false),
                 Forms\Components\TextInput::make('order')
                     ->required()
                     ->numeric()
                     ->default(0),
                 Forms\Components\MarkdownEditor::make('description')
                     ->columnSpanFull(),
-
+                //TODO uploads
             ]);
     }
 
@@ -88,7 +112,8 @@ class RealizationResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            TechnologiesRelationManager::class,
+            SkillsRelationManager::class,
         ];
     }
 
