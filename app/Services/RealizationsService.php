@@ -12,6 +12,6 @@ class RealizationsService extends BaseService implements HomeCollections
 
     public function __construct()
     {
-        parent::__construct(Realization::class, ['technologies', 'skills']);
+        parent::__construct(Realization::class, ['technologies', 'skills', 'technologies.proficiency']);
     }
 }
