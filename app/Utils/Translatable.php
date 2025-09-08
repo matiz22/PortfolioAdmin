@@ -32,55 +32,42 @@ class Translatable
             return null;
         }
 
-        $array = $model->toArray();
+        $attributes = $model->attributesToArray();
         $locale = app()->getLocale();
 
-        // Translate the main model's translatable fields
-        if (property_exists($model, 'translatable')) {
-            foreach ($model->translatable as $field) {
-                if (isset($array[$field]) && is_array($array[$field])) {
-                    // Get the translated value for the current locale
-                    $array[$field] = $model->getTranslation($field, $locale);
-                }
+        // Only translate attributes that are present in the array (official approach)
+        if (method_exists($model, 'getTranslatableAttributes')) {
+            $translatables = array_filter($model->getTranslatableAttributes(), function ($key) use ($attributes) {
+                return array_key_exists($key, $attributes);
+            });
+            foreach ($translatables as $field) {
+                $attributes[$field] = $model->getTranslation($field, $locale);
+            }
+        } elseif (property_exists($model, 'translatable')) {
+            // fallback for models using 'translatable' property
+            $translatables = array_filter($model->translatable, function ($key) use ($attributes) {
+                return array_key_exists($key, $attributes);
+            });
+            foreach ($translatables as $field) {
+                $attributes[$field] = $model->getTranslation($field, $locale);
             }
         }
 
         // Translate related models if requested
         if ($translateRelations) {
-            $array = self::translateRelations($array, $model);
-        }
-
-        return $array;
-    }
-
-    /**
-     * Translate related models within the array.
-     *
-     * @param array $array
-     * @param Model $model
-     * @return array
-     */
-    private static function translateRelations(array $array, Model $model): array
-    {
-        // Get loaded relationships from the model
-        $relations = $model->getRelations();
-
-        foreach ($relations as $relationName => $relationValue) {
-            if (isset($array[$relationName])) {
+            $relations = $model->getRelations();
+            foreach ($relations as $relationName => $relationValue) {
                 if ($relationValue instanceof Collection) {
-                    // Handle collections (hasMany, belongsToMany, etc.)
-                    $array[$relationName] = self::translateCollection($relationValue, true);
+                    $attributes[$relationName] = self::translateCollection($relationValue, true);
                 } elseif ($relationValue instanceof Model) {
-                    // Handle single models (belongsTo, hasOne, etc.)
-                    $array[$relationName] = self::translateModel($relationValue, true);
+                    $attributes[$relationName] = self::translateModel($relationValue, true);
                 } elseif (is_array($relationValue)) {
-                    // Handle arrays of models or nested arrays
-                    $array[$relationName] = self::translateArrayOfModels($relationValue);
+                    $attributes[$relationName] = self::translateArrayOfModels($relationValue);
                 }
             }
         }
 
-        return $array;
+        return $attributes;
     }
 
     /**
@@ -116,15 +103,22 @@ class Translatable
             return null;
         }
 
-        $array = $model->toArray();
+        $attributes = $model->attributesToArray();
         $locale = app()->getLocale();
 
-        // Translate the main model's translatable fields
-        if (property_exists($model, 'translatable')) {
-            foreach ($model->translatable as $field) {
-                if (isset($array[$field]) && is_array($array[$field])) {
-                    $array[$field] = $model->getTranslation($field, $locale);
-                }
+        if (method_exists($model, 'getTranslatableAttributes')) {
+            $translatables = array_filter($model->getTranslatableAttributes(), function ($key) use ($attributes) {
+                return array_key_exists($key, $attributes);
+            });
+            foreach ($translatables as $field) {
+                $attributes[$field] = $model->getTranslation($field, $locale);
+            }
+        } elseif (property_exists($model, 'translatable')) {
+            $translatables = array_filter($model->translatable, function ($key) use ($attributes) {
+                return array_key_exists($key, $attributes);
+            });
+            foreach ($translatables as $field) {
+                $attributes[$field] = $model->getTranslation($field, $locale);
             }
         }
 
@@ -133,20 +127,20 @@ class Translatable
             $modelRelations = $model->getRelations();
 
             foreach ($relations as $relationName) {
-                if (isset($modelRelations[$relationName]) && isset($array[$relationName])) {
+                if (isset($modelRelations[$relationName])) {
                     $relationValue = $modelRelations[$relationName];
 
                     if ($relationValue instanceof Collection) {
-                        $array[$relationName] = self::translateCollection($relationValue, true);
+                        $attributes[$relationName] = self::translateCollection($relationValue, true);
                     } elseif ($relationValue instanceof Model) {
-                        $array[$relationName] = self::translateModel($relationValue, true);
+                        $attributes[$relationName] = self::translateModel($relationValue, true);
                     } elseif (is_array($relationValue)) {
-                        $array[$relationName] = self::translateArrayOfModels($relationValue);
+                        $attributes[$relationName] = self::translateArrayOfModels($relationValue);
                     }
                 }
             }
         }
 
-        return $array;
+        return $attributes;
     }
 }
