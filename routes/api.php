@@ -73,9 +73,11 @@ Route::prefix('v1')->group(function () {
     Route::prefix('jobs')->group(function () {
         Route::get('/', [JobsApi::class, 'all']);
         Route::get('{id}', [JobsApi::class, 'byId'])->where('id', '[0-9]+');
+        Route::get('home-page', [JobsApi::class, 'home']);
         Route::prefix('translated')->group(function () {
             Route::get('/', [JobsApi::class, 'allTranslated']);
             Route::get('{id}', [JobsApi::class, 'translated'])->where('id', '[0-9]+');
+            Route::get('home-page', [JobsApi::class, 'homeTranslated']);
         });
     });
 

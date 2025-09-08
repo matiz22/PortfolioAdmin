@@ -27,6 +27,7 @@ class Job extends Model
         'is_current',
         'description',
         'order',
+        'home_page',
     ];
 
     protected $casts = [
@@ -34,6 +35,7 @@ class Job extends Model
         'end_date' => 'date',
         'is_current' => 'boolean',
         'order' => 'integer',
+        'home_page' => 'boolean',
     ];
 
     /**

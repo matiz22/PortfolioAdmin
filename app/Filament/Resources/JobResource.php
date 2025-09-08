@@ -35,6 +35,8 @@ class JobResource extends Resource
                 Forms\Components\DatePicker::make('end_date'),
                 Forms\Components\Toggle::make('is_current')
                     ->required(),
+                Forms\Components\Toggle::make('home_page')
+                    ->required(),
                 Forms\Components\TextInput::make('order')
                     ->required()
                     ->numeric()
