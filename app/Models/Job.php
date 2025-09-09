@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HasDisplayOrder;
+use App\Traits\HasPublishedField;
 use App\Traits\ManagesFileUploads;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -10,7 +11,10 @@ use Spatie\Translatable\HasTranslations;
 
 class Job extends Model
 {
-    use HasDisplayOrder, HasTranslations, ManagesFileUploads;
+    use HasDisplayOrder,
+        HasTranslations,
+        ManagesFileUploads,
+        HasPublishedField;
 
     public $table = 'job_listings';
 
@@ -32,6 +36,7 @@ class Job extends Model
         'order',
         'home_page',
         'thumbnail',
+        'published',
     ];
 
     protected $casts = [
@@ -40,6 +45,7 @@ class Job extends Model
         'is_current' => 'boolean',
         'order' => 'integer',
         'home_page' => 'boolean',
+        'published' => 'boolean',
     ];
 
     /**

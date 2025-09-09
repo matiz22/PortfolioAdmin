@@ -56,7 +56,7 @@ class JobResource extends Resource
                     ->visibility('public'),
                 Forms\Components\MarkdownEditor::make('description')
                     ->columnSpanFull(),
-
+                Forms\Components\Toggle::make('published')
             ]);
     }
 
