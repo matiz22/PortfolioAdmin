@@ -50,6 +50,10 @@ class JobResource extends Resource
                     ->label('Technologies')
                     ->multiple()
                     ->relationship('technologies', 'name'),
+                Forms\Components\FileUpload::make('thumbnail')
+                    ->image()
+                    ->directory('thumbnails')
+                    ->visibility('public'),
                 Forms\Components\MarkdownEditor::make('description')
                     ->columnSpanFull(),
 

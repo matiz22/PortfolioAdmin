@@ -3,15 +3,18 @@
 namespace App\Models;
 
 use App\Traits\HasDisplayOrder;
+use App\Traits\ManagesFileUploads;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Translatable\HasTranslations;
 
 class Job extends Model
 {
-    use HasDisplayOrder, HasTranslations;
+    use HasDisplayOrder, HasTranslations, ManagesFileUploads;
 
     public $table = 'job_listings';
+
+    protected array $fileFields = ['thumbnail'];
 
     public array $translatable = [
         'title',
@@ -28,6 +31,7 @@ class Job extends Model
         'description',
         'order',
         'home_page',
+        'thumbnail',
     ];
 
     protected $casts = [
