@@ -48,8 +48,14 @@ class EducationResource extends Resource
                 Forms\Components\DatePicker::make('start_date')
                     ->required(),
                 Forms\Components\DatePicker::make('end_date'),
+                Forms\Components\Toggle::make('home_page'),
                 Forms\Components\Toggle::make('is_current')
                     ->required(),
+                Forms\Components\Toggle::make('published'),
+                Forms\Components\FileUpload::make('thumbnail')
+                    ->image()
+                    ->directory('thumbnails')
+                    ->visibility('public'),
                 Forms\Components\TextInput::make('order')
                     ->required()
                     ->numeric()

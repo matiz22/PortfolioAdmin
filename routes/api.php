@@ -84,9 +84,11 @@ Route::prefix('v1')->group(function () {
     Route::prefix('education')->group(function () {
         Route::get('/', [EducationApi::class, 'all']);
         Route::get('{id}', [EducationApi::class, 'byId'])->where('id', '[0-9]+');
+        Route::get('home-page', [EducationApi::class, 'home']);
         Route::prefix('translated')->group(function () {
             Route::get('/', [EducationApi::class, 'allTranslated']);
             Route::get('{id}', [EducationApi::class, 'translated'])->where('id', '[0-9]+');
+            Route::get('home-page', [EducationApi::class, 'homeTranslated']);
         });
     });
 

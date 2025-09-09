@@ -3,13 +3,18 @@
 namespace App\Models;
 
 use App\Traits\HasDisplayOrder;
+use App\Traits\HasPublishedField;
+use App\Traits\ManagesFileUploads;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Translatable\HasTranslations;
 
 class Education extends Model
 {
-    use HasDisplayOrder, HasTranslations;
+    use HasDisplayOrder,
+        HasTranslations,
+        ManagesFileUploads,
+        HasPublishedField;
 
     public array $translatable = [
         'institution',
@@ -28,6 +33,9 @@ class Education extends Model
         'is_current',
         'description',
         'order',
+        'thumbnail',
+        'home_page',
+        'published',
     ];
 
     protected $casts = [
@@ -35,6 +43,8 @@ class Education extends Model
         'end_date' => 'date',
         'is_current' => 'boolean',
         'order' => 'integer',
+        'published' => 'boolean',
+        'home_page' => 'boolean',
     ];
 
     /**

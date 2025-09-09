@@ -3,9 +3,12 @@
 namespace App\Services;
 
 use App\Models\Education;
+use App\Services\Contracts\HomeCollections;
+use App\Traits\GetHomePageItems;
 
-class EducationService extends BaseService
+class EducationService extends BaseService implements HomeCollections
 {
+    use GetHomePageItems;
 
     public function __construct()
     {
