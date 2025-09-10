@@ -3,6 +3,7 @@
 use App\Http\Controllers\CertificationsApi;
 use App\Http\Controllers\EducationApi;
 use App\Http\Controllers\JobsApi;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProficienciesApi;
 use App\Http\Controllers\ProjectsApi;
 use App\Http\Controllers\RealizationsApi;
@@ -103,4 +104,5 @@ Route::prefix('v1')->group(function () {
         });
     });
 
+    Route::post('/send-email', [MailController::class, 'sendContactForm']);;
 });
