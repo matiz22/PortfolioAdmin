@@ -4,6 +4,7 @@ namespace App\Filament\RelationManagers;
 
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\RelationManagers\Concerns\Translatable;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class TechnologiesRelationManager extends RelationManager
 {
+    use Translatable;
     protected static string $relationship = 'technologies';
 
     public function form(Form $form): Form
