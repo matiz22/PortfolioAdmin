@@ -10,7 +10,6 @@ class MailEntry extends Model
         'form_name',
         'from_email',
         'from_name',
-        'to_email',
         'subject',
         'message',
         'status',

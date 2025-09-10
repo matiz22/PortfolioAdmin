@@ -17,7 +17,6 @@ class ContactFormRequest extends FormRequest
             'form_name'   => 'required|string|max:50',
             'from_email'  => 'required|email|max:255',
             'from_name'   => 'required|string|max:100',
-            'to_email'    => 'required|email|max:255',
             'subject'     => 'required|string|max:255',
             'message'     => 'required|string|max:5000',
         ];
@@ -38,7 +37,6 @@ class ContactFormRequest extends FormRequest
     {
         return [
             'from_email' => 'sender email',
-            'to_email' => 'recipient email',
             'from_name' => 'sender name',
         ];
     }
