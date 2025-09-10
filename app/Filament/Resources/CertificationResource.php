@@ -48,6 +48,9 @@ class CertificationResource extends Resource
                     ->label('Technologies')
                     ->multiple()
                     ->relationship('technologies', 'name'),
+                Forms\Components\Toggle::make('published'),
+                Forms\Components\Toggle::make('home_page'),
+                Forms\Components\FileUpload::make('thumbnail'),
                 Forms\Components\MarkdownEditor::make('description')
                     ->columnSpanFull(),
             ]);

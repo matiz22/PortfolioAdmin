@@ -3,15 +3,23 @@
 namespace App\Models;
 
 use App\Traits\HasDisplayOrder;
+use App\Traits\HasPublishedField;
+use App\Traits\ManagesFileUploads;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Translatable\HasTranslations;
 
 class Certification extends Model
 {
-    use HasDisplayOrder, HasTranslations;
+    use
+        HasDisplayOrder,
+        HasTranslations,
+        ManagesFileUploads,
+        HasPublishedField;
 
     public array $translatable = ['name', 'description'];
+
+    protected array $fileFields = ['thumbnail'];
 
     protected $fillable = [
         'name',
@@ -22,12 +30,17 @@ class Certification extends Model
         'credential_url',
         'description',
         'order',
+        'published',
+        'home_page',
+        'thumbnail'
     ];
 
     protected $casts = [
         'issue_date' => 'date',
         'expiration_date' => 'date',
         'order' => 'integer',
+        'published' => 'boolean',
+        'home_page' => 'boolean',
     ];
 
     /**
