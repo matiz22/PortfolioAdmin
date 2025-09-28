@@ -21,11 +21,13 @@ return [
 
     'allowed_origins' => env('APP_ENV') === 'local' ? [
         'http://localhost:4200',
+        'http://localhost:4000',
         'http://127.0.0.1:4200',
         'http://localhost:4200',
         'http://127.0.0.1:8000'
     ] : [
-        'https://yourproductiondomain.com'
+        'http://localhost:4000',
+        env('APP_URL')
     ],
 
 
