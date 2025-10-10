@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use AllowDynamicProperties;
 use App\Http\Requests\ContactFormRequest;
 use App\Mail\ContactForm;
 use App\Models\MailEntry;
 use App\Services\AdminService;
-use Illuminate\Http\JsonResponse;
+use Exception;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class MailController extends Controller
@@ -28,7 +28,15 @@ class MailController extends Controller
         $recipientEmails = $this->adminService->getAdminsEmails();
 
         foreach ($recipientEmails as $recipientEmail) {
-            Mail::to($recipientEmail)->send(new ContactForm($mailEntry));
+            try {
+                Mail::to($recipientEmail)->send(new ContactForm($mailEntry));
+            } catch (Exception $e) {
+                Log::warning('Failed to send email to: ' . $recipientEmail);
+                Log::warning('Validation errors: ' . $validated);
+                Log::warning('Content : ' . $mailEntry);
+                Log::warning('Error details: ' . $e->getMessage());
+            }
+
         }
 
 
