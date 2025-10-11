@@ -104,5 +104,5 @@ Route::prefix('v1')->group(function () {
         });
     });
 
-    Route::post('/send-email', [MailController::class, 'sendContactForm']);;
+    Route::post('/send-email', [MailController::class, 'sendContactForm']);
 });
