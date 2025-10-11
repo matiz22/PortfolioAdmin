@@ -123,4 +123,7 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    // Additional validation for frontend API key
+    'frontend_api_key' => env('FRONTEND_API_KEY'),
+
 ];
