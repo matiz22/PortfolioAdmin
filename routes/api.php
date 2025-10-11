@@ -10,9 +10,10 @@ use App\Http\Controllers\RealizationsApi;
 use App\Http\Controllers\SkillsApi;
 use App\Http\Controllers\SocialLinksApi;
 use App\Http\Controllers\TechnologiesApi;
+use App\Http\Middleware\FrontEndApiKey;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')->group(function () {
+Route::prefix('v1')->middleware(FrontEndApiKey::class)->group(function () {
     Route::prefix('proficiencies')->group(function () {
         Route::get('/', [ProficienciesApi::class, 'all']);
         Route::get('{id}', [ProficienciesApi::class, 'byId'])->where('id', '[0-9]+');
