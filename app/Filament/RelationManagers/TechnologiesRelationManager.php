@@ -2,31 +2,38 @@
 
 namespace App\Filament\RelationManagers;
 
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\RelationManagers\Concerns\Translatable;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\CreateAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Tables;
+use Filament\Schemas\Schema;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Storage;
+use LaraZeus\SpatieTranslatable\Resources\Concerns\Translatable;
 
 class TechnologiesRelationManager extends RelationManager
 {
     use Translatable;
     protected static string $relationship = 'technologies';
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
+        return $schema
+            ->components([
+                TextInput::make('name')
                     ->required(),
-                Forms\Components\Select::make('proficiency_id')
+                Select::make('proficiency_id')
                     ->relationship('proficiency', 'name'),
-                Forms\Components\TextInput::make('order')
+                TextInput::make('order')
                     ->numeric()
                     ->default(1),
-                Forms\Components\FileUpload::make('icon')
+                FileUpload::make('icon')
                     ->image()
                     ->directory('icons')
                     ->visibility('public')
@@ -43,21 +50,21 @@ class TechnologiesRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('name')
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                TextColumn::make('name'),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                CreateAction::make(),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+            ->recordActions([
+                EditAction::make(),
+                DeleteAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
