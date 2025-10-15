@@ -19,7 +19,7 @@ class RealizationResource extends Resource
 
     protected static ?string $model = Realization::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-check';
 
     public static function form(Form $form): Form
     {

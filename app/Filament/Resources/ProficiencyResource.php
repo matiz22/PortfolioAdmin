@@ -17,7 +17,7 @@ class ProficiencyResource extends Resource
 
     protected static ?string $model = Proficiency::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-arrow-up-right';
 
     public static function form(Form $form): Form
     {
