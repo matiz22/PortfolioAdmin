@@ -23,6 +23,8 @@ class Job extends Model
     public array $translatable = [
         'title',
         'description',
+        'location',
+        'company_name',
     ];
 
     protected $fillable = [
