@@ -32,11 +32,10 @@ class MailController extends Controller
                 Mail::to($recipientEmail)->send(new ContactForm($mailEntry));
             } catch (Exception $e) {
                 Log::warning('Failed to send email to: ' . $recipientEmail);
-                Log::warning('Validation errors: ' . $validated);
-                Log::warning('Content : ' . $mailEntry);
-                Log::warning('Error details: ' . $e->getMessage());
+                Log::warning('Validation errors', ['validated' => $validated]);
+                Log::warning('Content', ['mailEntry' => $mailEntry->toArray()]);
+                Log::warning('Error details: ' . $e->getMessage(), ['exception' => $e]);
             }
-
         }
 
 
