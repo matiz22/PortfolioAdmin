@@ -7,6 +7,7 @@ use App\Services\Contracts\HomeCollections;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 abstract class BaseController extends Controller
 {
@@ -25,6 +26,7 @@ abstract class BaseController extends Controller
         try {
             return $this->service->getAll();
         } catch (Exception $e) {
+            Log::error($e->getMessage());
             return response()->json(['message' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
