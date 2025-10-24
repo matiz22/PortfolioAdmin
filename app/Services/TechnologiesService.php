@@ -8,6 +8,6 @@ class TechnologiesService extends BaseService
 {
     public function __construct()
     {
-        parent::__construct(Technology::class, ['proficiencies']);
+        parent::__construct(Technology::class, ['proficiency']);
     }
 }
