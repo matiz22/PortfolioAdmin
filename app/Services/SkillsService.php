@@ -8,6 +8,6 @@ class SkillsService extends BaseService
 {
     public function __construct()
     {
-        parent::__construct(Skill::class, ['proficiencies']);
+        parent::__construct(Skill::class, ['proficiency']);
     }
 }
