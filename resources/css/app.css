@@ -5,8 +5,6 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
-@custom-variant dark (&:is(.dark *));
-
 @theme inline {
     --font-sans: Instrument Sans, ui-sans-serif, system-ui, sans-serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
@@ -112,7 +110,7 @@
     --chart-3: hsl(197 37% 24%);
     --chart-4: hsl(43 74% 66%);
     --chart-5: hsl(27 87% 67%);
-    --radius: 0.5rem;
+    --radius: 2rem;
     --sidebar-background: hsl(0 0% 98%);
     --sidebar-foreground: hsl(240 5.3% 26.1%);
     --sidebar-primary: hsl(0 0% 10%);
@@ -125,25 +123,25 @@
 }
 
 .dark {
-    --background: hsl(0 0% 3.9%);
-    --foreground: hsl(0 0% 98%);
-    --card: hsl(0 0% 3.9%);
-    --card-foreground: hsl(0 0% 98%);
-    --popover: hsl(0 0% 3.9%);
-    --popover-foreground: hsl(0 0% 98%);
-    --primary: hsl(0 0% 98%);
-    --primary-foreground: hsl(0 0% 9%);
-    --secondary: hsl(0 0% 14.9%);
-    --secondary-foreground: hsl(0 0% 98%);
-    --muted: hsl(0 0% 16.08%);
-    --muted-foreground: hsl(0 0% 63.9%);
-    --accent: hsl(0 0% 14.9%);
-    --accent-foreground: hsl(0 0% 98%);
-    --destructive: hsl(0 84% 60%);
-    --destructive-foreground: hsl(0 0% 98%);
-    --border: hsl(0 0% 14.9%);
-    --input: hsl(0 0% 14.9%);
-    --ring: hsl(0 0% 83.1%);
+    --background: oklch(0% 0 0);
+    --foreground: oklch(100% 0 0);
+    --card: oklch(23.26% 0.014 253.1);
+    --card-foreground: oklch(100% 0 0);
+    --popover: oklch(23.26% 0.014 253.1);
+    --popover-foreground: oklch(100% 0 0);
+    --primary: oklch(0.7941 0.1688 155.68);
+    --primary-foreground: oklch(0% 0 0);
+    --secondary: oklch(0.78 0.13 195);
+    --secondary-foreground: oklch(0% 0 0);
+    --muted: oklch(14% 0.005 285.823);
+    --muted-foreground: oklch(92% 0.004 286.32);
+    --accent: oklch(0.82 0.16 95);
+    --accent-foreground: oklch(38% 0.063 188.416);
+    --destructive: oklch(71% 0.194 13.428);
+    --destructive-foreground: oklch(27% 0.105 12.094);
+    --border: oklch(21.15% 0.012 254.09);
+    --input: oklch(21.15% 0.012 254.09);
+    --ring: oklch(0.7941 0.1688 155.68);
     --chart-1: hsl(220 70% 50%);
     --chart-2: hsl(160 60% 45%);
     --chart-3: hsl(30 80% 55%);

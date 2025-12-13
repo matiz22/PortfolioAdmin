@@ -5,5 +5,9 @@
 </template>
 
 <script lang="ts" setup>
-// Add your script here
+import HomePageLayout from '@/layouts/HomePageLayout.vue'
+
+defineOptions({
+    layout: HomePageLayout
+})
 </script>
