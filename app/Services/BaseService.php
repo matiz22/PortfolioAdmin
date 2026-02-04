@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Utils\Translatable;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -69,6 +70,34 @@ abstract class BaseService
     public function getAll(): Collection
     {
         return $this->newBaseQuery()->get();
+    }
+
+    /**
+     * Get all models paginated.
+     *
+     * @param int $perPage
+     * @param int $page
+     * @return LengthAwarePaginator
+     */
+    public function getPaginated(int $perPage = 15, int $page = 1): LengthAwarePaginator
+    {
+        return $this->newBaseQuery()->paginate($perPage, ['*'], 'page', $page);
+    }
+
+    /**
+     * Get all models paginated and translated (if the model supports translation).
+     *
+     * @param int $perPage
+     * @param int $page
+     * @return array
+     */
+    public function getPaginatedTranslated(int $perPage = 15, int $page = 1): array
+    {
+        $paginator = $this->getPaginated($perPage, $page);
+        $paginatorData = $paginator->toArray();
+        $paginatorData['data'] = Translatable::translateCollection($paginator->getCollection());
+
+        return $paginatorData;
     }
 
     /**
