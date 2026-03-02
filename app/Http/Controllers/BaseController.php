@@ -6,6 +6,7 @@ use App\Services\BaseService;
 use App\Services\Contracts\HomeCollections;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 
@@ -48,6 +49,29 @@ abstract class BaseController extends Controller
             }
             return $result;
         } catch (Exception $e) {
+            return response()->json(['message' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Display a listing of the resource paginated.
+     * @param Request $request
+     * @return mixed
+     */
+    public function paginated(Request $request)
+    {
+        $validated = $request->validate([
+            'perPage' => 'sometimes|integer|min:1|max:100',
+            'page' => 'sometimes|integer|min:1',
+        ]);
+
+        $perPage = $validated['perPage'] ?? 15;
+        $page = $validated['page'] ?? 1;
+
+        try {
+            return $this->service->getPaginated($perPage, $page);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
             return response()->json(['message' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
@@ -96,6 +120,29 @@ abstract class BaseController extends Controller
             }
             return $result;
         } catch (Exception $e) {
+            return response()->json(['message' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Display a listing of the resource paginated (translated).
+     * @param Request $request
+     * @return mixed
+     */
+    public function paginatedTranslated(Request $request)
+    {
+        $validated = $request->validate([
+            'perPage' => 'sometimes|integer|min:1|max:100',
+            'page' => 'sometimes|integer|min:1',
+        ]);
+
+        $perPage = $validated['perPage'] ?? 15;
+        $page = $validated['page'] ?? 1;
+
+        try {
+            return $this->service->getPaginatedTranslated($perPage, $page);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
             return response()->json(['message' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
