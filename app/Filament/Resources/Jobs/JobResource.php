@@ -82,7 +82,6 @@ class JobResource extends Resource
                 TextColumn::make('company_name')
                     ->searchable(),
                 TextColumn::make('company_link')
-                    ->url()
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('location')
