@@ -75,7 +75,12 @@ class RealizationResource extends Resource
                     ->default(0),
                 MarkdownEditor::make('description')
                     ->columnSpanFull(),
-                //TODO uploads
+                FileUpload::make('screenshots')
+                    ->multiple()
+                    ->image()
+                    ->directory('screenshots')
+                    ->visibility('public')
+                    ->columnSpanFull(),
             ]);
     }
 
