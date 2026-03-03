@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\HasDisplayOrder;
 use App\Traits\HasPublishedField;
 use App\Traits\ManagesFileUploads;
+use App\Traits\ManagesMultipleFileUploads;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Translatable\HasTranslations;
@@ -14,12 +15,14 @@ class Realization extends Model
     use
         HasDisplayOrder,
         HasTranslations,
+        ManagesMultipleFileUploads,
         ManagesFileUploads,
         HasPublishedField;
 
     public array $translatable = [
         'title',
         'description',
+        'short_desc',
     ];
 
     protected $fillable = [
@@ -34,14 +37,17 @@ class Realization extends Model
         'published',
         'home_page',
         'short_desc',
+        'screenshots',
     ];
 
-    protected array $fileFields = ['thumbnail ', 'client_logo'];
+    protected array $filesFields = ['screenshots'];
+    protected array $fileFields = ['thumbnail', 'client_logo'];
 
     protected $casts = [
         'order' => 'integer',
         'published' => 'boolean',
         'home_page' => 'boolean',
+        'screenshots' => 'array',
     ];
 
     /**
