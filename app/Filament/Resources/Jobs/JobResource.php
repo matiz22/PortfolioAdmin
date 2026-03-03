@@ -40,6 +40,8 @@ class JobResource extends Resource
             ->components([
                 TextInput::make('company_name')
                     ->required(),
+                TextInput::make('company_link')
+                    ->url(),
                 TextInput::make('location'),
                 Textarea::make('title')
                     ->required()
@@ -79,6 +81,10 @@ class JobResource extends Resource
             ->columns([
                 TextColumn::make('company_name')
                     ->searchable(),
+                TextColumn::make('company_link')
+                    ->url()
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('location')
                     ->searchable(),
                 TextColumn::make('start_date')
