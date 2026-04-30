@@ -33,4 +33,24 @@ trait GetHomeEndpoints
             return response()->json(['message' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    public function homeSummary(): Collection|JsonResponse
+    {
+        try {
+            return $this->service->getHomeCollectionsSummary();
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['message' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function homeSummaryTranslated(): JsonResponse|array
+    {
+        try {
+            return $this->service->getHomeCollectionsSummaryTranslated();
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['message' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

@@ -8,10 +8,12 @@ use App\Filament\Resources\JobResource\Pages;
 use App\Filament\Resources\Jobs\Pages\CreateJob;
 use App\Filament\Resources\Jobs\Pages\EditJob;
 use App\Filament\Resources\Jobs\Pages\ListJobs;
+use App\Filament\Forms\SeoTab;
 use App\Models\Job;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Schemas\Components\Tabs;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
@@ -38,40 +40,50 @@ class JobResource extends Resource
     {
         return $schema
             ->components([
-                TextInput::make('company_name')
-                    ->required(),
-                TextInput::make('company_link')
-                    ->url(),
-                TextInput::make('location'),
-                Textarea::make('title')
-                    ->required()
+                Tabs::make('Job Tabs')
+                    ->tabs([
+                        Tabs\Tab::make('Details')
+                            ->schema([
+                                TextInput::make('company_name')
+                                    ->required(),
+                                TextInput::make('company_link')
+                                    ->url(),
+                                TextInput::make('location'),
+                                Textarea::make('title')
+                                    ->required()
+                                    ->columnSpanFull(),
+                                Textarea::make('short_desc')
+                                    ->columnSpanFull(),
+                                DatePicker::make('start_date'),
+                                DatePicker::make('end_date'),
+                                Toggle::make('is_current')
+                                    ->required(),
+                                Toggle::make('home_page')
+                                    ->required(),
+                                TextInput::make('order')
+                                    ->required()
+                                    ->numeric()
+                                    ->default(0),
+                                Select::make('skills')
+                                    ->label('Skills')
+                                    ->multiple()
+                                    ->relationship('skills', 'name')
+                                    ->searchable(),
+                                Select::make('technologies')
+                                    ->label('Technologies')
+                                    ->multiple()
+                                    ->relationship('technologies', 'name'),
+                                FileUpload::make('thumbnail')
+                                    ->image()
+                                    ->directory('thumbnails')
+                                    ->visibility('public'),
+                                MarkdownEditor::make('description')
+                                    ->columnSpanFull(),
+                                Toggle::make('published'),
+                            ]),
+                        SeoTab::make(),
+                    ])
                     ->columnSpanFull(),
-                DatePicker::make('start_date'),
-                DatePicker::make('end_date'),
-                Toggle::make('is_current')
-                    ->required(),
-                Toggle::make('home_page')
-                    ->required(),
-                TextInput::make('order')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
-                Select::make('skills')
-                    ->label('Skills')
-                    ->multiple()
-                    ->relationship('skills', 'name')
-                    ->searchable(),
-                Select::make('technologies')
-                    ->label('Technologies')
-                    ->multiple()
-                    ->relationship('technologies', 'name'),
-                FileUpload::make('thumbnail')
-                    ->image()
-                    ->directory('thumbnails')
-                    ->visibility('public'),
-                MarkdownEditor::make('description')
-                    ->columnSpanFull(),
-                Toggle::make('published')
             ]);
     }
 

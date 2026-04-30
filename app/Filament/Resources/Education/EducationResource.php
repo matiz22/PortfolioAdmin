@@ -8,10 +8,12 @@ use App\Filament\Resources\Education\Pages\CreateEducation;
 use App\Filament\Resources\Education\Pages\EditEducation;
 use App\Filament\Resources\Education\Pages\ListEducation;
 use App\Filament\Resources\EducationResource\Pages;
+use App\Filament\Forms\SeoTab;
 use App\Models\Education;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Schemas\Components\Tabs;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
@@ -41,40 +43,48 @@ class EducationResource extends Resource
     {
         return $schema
             ->components([
-                Textarea::make('institution')
-                    ->required()
+                Tabs::make('Education Tabs')
+                    ->tabs([
+                        Tabs\Tab::make('Details')
+                            ->schema([
+                                Textarea::make('institution')
+                                    ->required()
+                                    ->columnSpanFull(),
+                                Textarea::make('degree')
+                                    ->required(),
+                                Textarea::make('field_of_study')
+                                    ->required(),
+                                Select::make('skills')
+                                    ->label('Skills')
+                                    ->multiple()
+                                    ->relationship('skills', 'name')
+                                    ->searchable(),
+                                Select::make('technologies')
+                                    ->label('Technologies')
+                                    ->multiple()
+                                    ->relationship('technologies', 'name'),
+                                MarkdownEditor::make('description')
+                                    ->columnSpanFull(),
+                                TextInput::make('grade'),
+                                DatePicker::make('start_date')
+                                    ->required(),
+                                DatePicker::make('end_date'),
+                                Toggle::make('home_page'),
+                                Toggle::make('is_current')
+                                    ->required(),
+                                Toggle::make('published'),
+                                FileUpload::make('thumbnail')
+                                    ->image()
+                                    ->directory('thumbnails')
+                                    ->visibility('public'),
+                                TextInput::make('order')
+                                    ->required()
+                                    ->numeric()
+                                    ->default(0),
+                            ]),
+                        SeoTab::make(),
+                    ])
                     ->columnSpanFull(),
-                Textarea::make('degree')
-                    ->required(),
-                Textarea::make('field_of_study')
-                    ->required(),
-                Select::make('skills')
-                    ->label('Skills')
-                    ->multiple()
-                    ->relationship('skills', 'name')
-                    ->searchable(),
-                Select::make('technologies')
-                    ->label('Technologies')
-                    ->multiple()
-                    ->relationship('technologies', 'name'),
-                MarkdownEditor::make('description')
-                    ->columnSpanFull(),
-                TextInput::make('grade'),
-                DatePicker::make('start_date')
-                    ->required(),
-                DatePicker::make('end_date'),
-                Toggle::make('home_page'),
-                Toggle::make('is_current')
-                    ->required(),
-                Toggle::make('published'),
-                FileUpload::make('thumbnail')
-                    ->image()
-                    ->directory('thumbnails')
-                    ->visibility('public'),
-                TextInput::make('order')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
             ]);
     }
 

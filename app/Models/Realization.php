@@ -23,10 +23,14 @@ class Realization extends Model
         'title',
         'description',
         'short_desc',
+        'seo_title',
+        'seo_description',
+        'seo_keywords',
     ];
 
     protected $fillable = [
         'title',
+        'slug',
         'client_name',
         'client_url',
         'client_logo',
@@ -38,6 +42,9 @@ class Realization extends Model
         'home_page',
         'short_desc',
         'screenshots',
+        'seo_enabled',
+        'seo_title',
+        'seo_keywords',
     ];
 
     protected array $filesFields = ['screenshots'];
@@ -48,6 +55,8 @@ class Realization extends Model
         'published' => 'boolean',
         'home_page' => 'boolean',
         'screenshots' => 'array',
+        'seo_enabled' => 'boolean',
+        'seo_keywords' => 'array',
     ];
 
     /**

@@ -19,4 +19,14 @@ trait GetHomePageItems
     {
         return Translatable::translateCollection($this->getHomeCollections());
     }
+
+    public function getHomeCollectionsSummary(): Collection
+    {
+        return $this->newSummaryQuery()->where('home_page', true)->get();
+    }
+
+    public function getHomeCollectionsSummaryTranslated(): array
+    {
+        return Translatable::translateCollection($this->getHomeCollectionsSummary());
+    }
 }
