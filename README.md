@@ -4,8 +4,8 @@ PortfolioAdmin is a robust, Headless CMS designed for managing personal portfoli
 
 ## 🚀 Tech Stack
 
-- **Framework:** [Laravel 12](https://laravel.com)
-- **Admin Panel:** [Filament 4](https://filamentphp.com)
+- **Framework:** [Laravel 13](https://laravel.com)
+- **Admin Panel:** [Filament 5](https://filamentphp.com)
 - **Database:** SQLite (default)
 - **Multi-language:** [Spatie Translatable](https://github.com/spatie/laravel-translatable)
 
