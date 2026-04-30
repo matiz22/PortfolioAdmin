@@ -33,3 +33,14 @@ Thumbs.db
 /opencode.json
 /boost.json
 /.github/skills/
+
+# Missing from user list
+/public/css/filament
+/public/fonts/filament
+/public/js/filament
+docker-compose.override.yml
+npm-debug.log
+yarn-error.log
+**/caddy
+frankenphp
+frankenphp-worker.php
