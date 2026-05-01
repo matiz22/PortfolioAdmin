@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\SocialLinks;
 
-use App\Filament\Resources\SocialLinkResource\Pages;
 use App\Filament\Resources\SocialLinks\Pages\CreateSocialLink;
 use App\Filament\Resources\SocialLinks\Pages\EditSocialLink;
 use App\Filament\Resources\SocialLinks\Pages\ListSocialLinks;
@@ -13,6 +12,8 @@ use Filament\Actions\EditAction;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -28,24 +29,30 @@ class SocialLinkResource extends Resource
     {
         return $schema
             ->components([
-                TextInput::make('name')
-                    ->required(),
-                TextInput::make('url')
-                    ->required()
-                    ->activeUrl(),
-                TextInput::make('order')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
-                FileUpload::make('icon')
-                    ->image()
-                    ->directory('icons')
-                    ->visibility('public')
-                    ->deleteUploadedFileUsing(function ($file) {
-                        if (Storage::exists($file)) {
-                            Storage::delete($file);
-                        }
-                    }),
+                Section::make('Social Link Details')
+                    ->schema([
+                        Grid::make(2)->schema([
+                            TextInput::make('name')
+                                ->required(),
+                            TextInput::make('order')
+                                ->required()
+                                ->numeric()
+                                ->default(0),
+                        ]),
+                        TextInput::make('url')
+                            ->required()
+                            ->activeUrl()
+                            ->columnSpanFull(),
+                        FileUpload::make('icon')
+                            ->image()
+                            ->directory('icons')
+                            ->visibility('public')
+                            ->deleteUploadedFileUsing(function ($file) {
+                                if (Storage::exists($file)) {
+                                    Storage::delete($file);
+                                }
+                            }),
+                    ]),
             ]);
     }
 
@@ -54,7 +61,8 @@ class SocialLinkResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('order')
                     ->numeric()
                     ->sortable(),
