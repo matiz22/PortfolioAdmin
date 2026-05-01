@@ -5,7 +5,6 @@ namespace App\Filament\Resources\Technologies;
 use App\Filament\Resources\Technologies\Pages\CreateTechnology;
 use App\Filament\Resources\Technologies\Pages\EditTechnology;
 use App\Filament\Resources\Technologies\Pages\ListTechnologies;
-use App\Filament\Resources\TechnologyResource\Pages;
 use App\Models\Technology;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -14,11 +13,12 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Storage;
-
 
 class TechnologyResource extends Resource
 {
@@ -30,22 +30,28 @@ class TechnologyResource extends Resource
     {
         return $schema
             ->components([
-                TextInput::make('name')
-                    ->required(),
-                Select::make('proficiency_id')
-                    ->relationship('proficiency', 'name'),
-                TextInput::make('order')
-                    ->numeric()
-                    ->default(1),
-                FileUpload::make('icon')
-                    ->image()
-                    ->directory('icons')
-                    ->visibility('public')
-                    ->deleteUploadedFileUsing(function ($file) {
-                        if (Storage::exists($file)) {
-                            Storage::delete($file);
-                        }
-                    }),
+                Section::make('Technology Details')
+                    ->schema([
+                        TextInput::make('name')
+                            ->required(),
+                        Grid::make(2)->schema([
+                            Select::make('proficiency_id')
+                                ->relationship('proficiency', 'name')
+                                ->required(),
+                            TextInput::make('order')
+                                ->numeric()
+                                ->default(1),
+                        ]),
+                        FileUpload::make('icon')
+                            ->image()
+                            ->directory('icons')
+                            ->visibility('public')
+                            ->deleteUploadedFileUsing(function ($file) {
+                                if (Storage::exists($file)) {
+                                    Storage::delete($file);
+                                }
+                            }),
+                    ]),
             ]);
     }
 
@@ -54,10 +60,11 @@ class TechnologyResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->searchable(),
-                TextColumn::make('order')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('proficiency.name')
+                    ->sortable(),
+                TextColumn::make('order')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')
