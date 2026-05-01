@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Skills;
 
-use App\Filament\Resources\SkillResource\Pages;
 use App\Filament\Resources\Skills\Pages\CreateSkill;
 use App\Filament\Resources\Skills\Pages\EditSkill;
 use App\Filament\Resources\Skills\Pages\ListSkills;
@@ -15,6 +14,8 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -33,21 +34,29 @@ class SkillResource extends Resource
     {
         return $schema
             ->components([
-                Textarea::make('name')
-                    ->required(),
-                Select::make('proficiency_id')
-                    ->relationship('proficiency', 'name'),
-                TextInput::make('order')
-                    ->numeric(),
-                FileUpload::make('icon')
-                    ->image()
-                    ->directory('icons')
-                    ->visibility('public')
-                    ->deleteUploadedFileUsing(function ($file) {
-                        if (Storage::exists($file)) {
-                            Storage::delete($file);
-                        }
-                    }),
+                Section::make('Skill Details')
+                    ->schema([
+                        Textarea::make('name')
+                            ->required()
+                            ->columnSpanFull(),
+                        Grid::make(2)->schema([
+                            Select::make('proficiency_id')
+                                ->relationship('proficiency', 'name')
+                                ->required(),
+                            TextInput::make('order')
+                                ->numeric()
+                                ->default(0),
+                        ]),
+                        FileUpload::make('icon')
+                            ->image()
+                            ->directory('icons')
+                            ->visibility('public')
+                            ->deleteUploadedFileUsing(function ($file) {
+                                if (Storage::exists($file)) {
+                                    Storage::delete($file);
+                                }
+                            }),
+                    ]),
             ]);
     }
 
@@ -56,9 +65,11 @@ class SkillResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('proficiency.name')
+                    ->sortable(),
+                TextColumn::make('order')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')
