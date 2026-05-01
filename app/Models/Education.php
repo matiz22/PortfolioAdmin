@@ -23,7 +23,6 @@ class Education extends Model
         'description',
         'seo_title',
         'seo_description',
-        'seo_keywords',
     ];
 
     protected $fillable = [
@@ -42,7 +41,6 @@ class Education extends Model
         'published',
         'seo_enabled',
         'seo_title',
-        'seo_keywords',
     ];
 
     protected $casts = [
@@ -53,7 +51,6 @@ class Education extends Model
         'published' => 'boolean',
         'home_page' => 'boolean',
         'seo_enabled' => 'boolean',
-        'seo_keywords' => 'array',
     ];
 
     /**

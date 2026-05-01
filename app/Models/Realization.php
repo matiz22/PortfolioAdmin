@@ -25,7 +25,6 @@ class Realization extends Model
         'short_desc',
         'seo_title',
         'seo_description',
-        'seo_keywords',
     ];
 
     protected $fillable = [
@@ -44,7 +43,6 @@ class Realization extends Model
         'screenshots',
         'seo_enabled',
         'seo_title',
-        'seo_keywords',
     ];
 
     protected array $filesFields = ['screenshots'];
@@ -56,7 +54,6 @@ class Realization extends Model
         'home_page' => 'boolean',
         'screenshots' => 'array',
         'seo_enabled' => 'boolean',
-        'seo_keywords' => 'array',
     ];
 
     /**

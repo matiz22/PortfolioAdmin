@@ -27,7 +27,6 @@ class Job extends Model
         'company_name',
         'seo_title',
         'seo_description',
-        'seo_keywords',
         'short_desc',
     ];
 
@@ -48,7 +47,6 @@ class Job extends Model
         'published',
         'seo_enabled',
         'seo_title',
-        'seo_keywords',
     ];
 
     protected $casts = [
@@ -59,7 +57,6 @@ class Job extends Model
         'home_page' => 'boolean',
         'published' => 'boolean',
         'seo_enabled' => 'boolean',
-        'seo_keywords' => 'array',
     ];
 
     /**

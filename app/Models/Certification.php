@@ -22,7 +22,6 @@ class Certification extends Model
         'description',
         'seo_title',
         'seo_description',
-        'seo_keywords',
         'short_desc',
     ];
 
@@ -44,7 +43,6 @@ class Certification extends Model
         'thumbnail',
         'seo_enabled',
         'seo_title',
-        'seo_keywords',
     ];
 
     protected $casts = [
@@ -54,7 +52,6 @@ class Certification extends Model
         'published' => 'boolean',
         'home_page' => 'boolean',
         'seo_enabled' => 'boolean',
-        'seo_keywords' => 'array',
     ];
 
     /**

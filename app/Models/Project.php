@@ -25,7 +25,6 @@ class Project extends Model
         'short_desc',
         'seo_title',
         'seo_description',
-        'seo_keywords',
     ];
     protected $fillable = [
         'title',
@@ -43,7 +42,6 @@ class Project extends Model
         'published',
         'seo_enabled',
         'seo_title',
-        'seo_keywords',
     ];
 
     protected array $filesFields = ['screenshots'];
@@ -57,7 +55,6 @@ class Project extends Model
         'home_page' => 'boolean',
         'published' => 'boolean',
         'seo_enabled' => 'boolean',
-        'seo_keywords' => 'array',
     ];
 
     public function tags(): BelongsToMany
