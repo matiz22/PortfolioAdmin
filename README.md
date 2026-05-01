@@ -1,6 +1,6 @@
 # PortfolioAdmin
 
-PortfolioAdmin is a robust, Headless CMS designed for managing personal portfolio websites. Built on **Laravel 12** and **Filament 4**, it provides a powerful admin interface and a comprehensive REST API for frontend consumption.
+PortfolioAdmin is a robust, Headless CMS designed for managing personal portfolio websites. Built on **Laravel 13** and **Filament 5**, it provides a powerful admin interface and a comprehensive REST API for frontend consumption.
 
 ## 🚀 Tech Stack
 
@@ -20,7 +20,9 @@ PortfolioAdmin is a robust, Headless CMS designed for managing personal portfoli
 - **Headless API:** Rich REST API (`/api/v1/`) with support for:
     - Localized content (multi-language support).
     - Pagination.
-    - Filtered "home-page" collections for quick landing page loads.
+    - **Summary Endpoints:** Lightweight endpoints for listing items with essential fields only.
+    - **Sitemap Support:** Dedicated endpoint for retrieving all published slugs and last modified dates.
+- **SEO Ready:** Streamlined SEO fields (Title, Description, Slug) for all public entities.
 - **Contact Management:** Integrated contact form processing with mail entry logging.
 - **Media Management:** Streamlined file and image uploads via Filament.
 - **Dynamic Ordering:** Custom display order for all portfolio items.
@@ -75,8 +77,10 @@ All API endpoints are prefixed with `/api/v1/`.
 
 | Endpoint | Description |
 | --- | --- |
-| `GET /api/v1/projects` | List all projects |
-| `GET /api/v1/projects/home-page` | Get projects featured on home page |
+| `GET /api/v1/slugs` | List all published slugs and last modified dates (for sitemaps) |
+| `GET /api/v1/projects` | List all projects (full details) |
+| `GET /api/v1/projects/summary` | List all projects (summary fields only) |
+| `GET /api/v1/projects/home-page/summary` | Get projects featured on home page (summary only) |
 | `GET /api/v1/jobs` | Work experience |
 | `GET /api/v1/skills` | Technical skills |
 | `POST /api/v1/send-email` | Submit contact form |
@@ -84,6 +88,7 @@ All API endpoints are prefixed with `/api/v1/`.
 ### Multi-language API
 Access translated content by using the `/translated` sub-path:
 `GET /api/v1/projects/translated`
+`GET /api/v1/projects/home-page/summary/translated`
 
 ## 🎨 Admin Panel
 Access the management interface at `/admin`. Here you can manage all portfolio content, view contact form submissions, and configure your site's data.
