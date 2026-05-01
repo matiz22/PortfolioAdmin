@@ -5,7 +5,6 @@ namespace App\Filament\Resources\Proficiencies;
 use App\Filament\Resources\Proficiencies\Pages\CreateProficiency;
 use App\Filament\Resources\Proficiencies\Pages\EditProficiency;
 use App\Filament\Resources\Proficiencies\Pages\ListProficiencies;
-use App\Filament\Resources\ProficiencyResource\Pages;
 use App\Models\Proficiency;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -13,6 +12,7 @@ use Filament\Actions\EditAction;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Textarea;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -31,9 +31,12 @@ class ProficiencyResource extends Resource
     {
         return $schema
             ->components([
-                Textarea::make('name')
-                    ->required(),
-                ColorPicker::make('color'),
+                Section::make('Proficiency Details')
+                    ->schema([
+                        Textarea::make('name')
+                            ->required(),
+                        ColorPicker::make('color'),
+                    ]),
             ]);
     }
 

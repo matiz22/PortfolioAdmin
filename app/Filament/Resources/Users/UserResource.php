@@ -2,8 +2,6 @@
 
 namespace App\Filament\Resources\Users;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
 use App\Filament\Resources\Users\Pages\CreateUser;
 use App\Filament\Resources\Users\Pages\EditUser;
 use App\Filament\Resources\Users\Pages\ListUsers;
@@ -13,6 +11,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -27,20 +26,22 @@ class UserResource extends Resource
     {
         return $schema
             ->components([
-                TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-
-                TextInput::make('email')
-                    ->required()
-                    ->email()
-                    ->maxLength(255),
-
-                TextInput::make('password')
-                    ->required()
-                    ->password()
-                    ->revealable()
-                    ->maxLength(255),
+                Section::make('User Information')
+                    ->schema([
+                        TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('email')
+                            ->required()
+                            ->email()
+                            ->maxLength(255),
+                        TextInput::make('password')
+                            ->required()
+                            ->password()
+                            ->revealable()
+                            ->maxLength(255)
+                            ->visibleOn('create'),
+                    ]),
             ]);
     }
 
