@@ -8,10 +8,12 @@ use App\Filament\Resources\RealizationResource\Pages;
 use App\Filament\Resources\Realizations\Pages\CreateRealization;
 use App\Filament\Resources\Realizations\Pages\EditRealization;
 use App\Filament\Resources\Realizations\Pages\ListRealizations;
+use App\Filament\Forms\SeoTab;
 use App\Models\Realization;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Schemas\Components\Tabs;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
@@ -36,50 +38,58 @@ class RealizationResource extends Resource
     {
         return $schema
             ->components([
-                TextInput::make('title')
-                    ->required(),
-                TextInput::make('client_name')
-                    ->required(),
-                Textarea::make('short_desc')
-                    ->required()
-                    ->columnSpanFull(),
-                FileUpload::make('client_logo')
-                    ->image()
-                    ->directory('clients')
-                    ->visibility('public'),
-                FileUpload::make('thumbnail')
-                    ->image()
-                    ->directory('thumbnails')
-                    ->visibility('public'),
-                TextInput::make('client_url')
-                    ->url(),
-                TextInput::make('location'),
-                Select::make('technologies')
-                    ->relationship('technologies', 'name')
-                    ->multiple()
-                    ->preload()
-                    ->searchable(),
-                Select::make('skills')
-                    ->relationship('skills', 'name')
-                    ->multiple()
-                    ->preload()
-                    ->searchable(),
-                Toggle::make('home_page')
-                    ->label('Show on Home Page')
-                    ->default(false),
-                Toggle::make('published')
-                    ->default(false),
-                TextInput::make('order')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
-                MarkdownEditor::make('description')
-                    ->columnSpanFull(),
-                FileUpload::make('screenshots')
-                    ->multiple()
-                    ->image()
-                    ->directory('screenshots')
-                    ->visibility('public')
+                Tabs::make('Realization Tabs')
+                    ->tabs([
+                        Tabs\Tab::make('Details')
+                            ->schema([
+                                TextInput::make('title')
+                                    ->required(),
+                                TextInput::make('client_name')
+                                    ->required(),
+                                Textarea::make('short_desc')
+                                    ->required()
+                                    ->columnSpanFull(),
+                                FileUpload::make('client_logo')
+                                    ->image()
+                                    ->directory('clients')
+                                    ->visibility('public'),
+                                FileUpload::make('thumbnail')
+                                    ->image()
+                                    ->directory('thumbnails')
+                                    ->visibility('public'),
+                                TextInput::make('client_url')
+                                    ->url(),
+                                TextInput::make('location'),
+                                Select::make('technologies')
+                                    ->relationship('technologies', 'name')
+                                    ->multiple()
+                                    ->preload()
+                                    ->searchable(),
+                                Select::make('skills')
+                                    ->relationship('skills', 'name')
+                                    ->multiple()
+                                    ->preload()
+                                    ->searchable(),
+                                Toggle::make('home_page')
+                                    ->label('Show on Home Page')
+                                    ->default(false),
+                                Toggle::make('published')
+                                    ->default(false),
+                                TextInput::make('order')
+                                    ->required()
+                                    ->numeric()
+                                    ->default(0),
+                                MarkdownEditor::make('description')
+                                    ->columnSpanFull(),
+                                FileUpload::make('screenshots')
+                                    ->multiple()
+                                    ->image()
+                                    ->directory('screenshots')
+                                    ->visibility('public')
+                                    ->columnSpanFull(),
+                            ]),
+                        SeoTab::make(),
+                    ])
                     ->columnSpanFull(),
             ]);
     }

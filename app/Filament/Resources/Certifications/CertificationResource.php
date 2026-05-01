@@ -8,10 +8,12 @@ use App\Filament\Resources\CertificationResource\Pages;
 use App\Filament\Resources\Certifications\Pages\CreateCertification;
 use App\Filament\Resources\Certifications\Pages\EditCertification;
 use App\Filament\Resources\Certifications\Pages\ListCertifications;
+use App\Filament\Forms\SeoTab;
 use App\Models\Certification;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Schemas\Components\Tabs;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
@@ -37,33 +39,43 @@ class CertificationResource extends Resource
     {
         return $schema
             ->components([
-                Textarea::make('name')
-                    ->required()
-                    ->columnSpanFull(),
-                TextInput::make('issuing_organization')
-                    ->required(),
-                DatePicker::make('issue_date'),
-                DatePicker::make('expiration_date'),
-                TextInput::make('credential_id'),
-                TextInput::make('credential_url')
-                    ->url(),
-                TextInput::make('order')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
-                Select::make('skills')
-                    ->label('Skills')
-                    ->multiple()
-                    ->relationship('skills', 'name')
-                    ->searchable(),
-                Select::make('technologies')
-                    ->label('Technologies')
-                    ->multiple()
-                    ->relationship('technologies', 'name'),
-                Toggle::make('published'),
-                Toggle::make('home_page'),
-                FileUpload::make('thumbnail'),
-                MarkdownEditor::make('description')
+                Tabs::make('Certification Tabs')
+                    ->tabs([
+                        Tabs\Tab::make('Details')
+                            ->schema([
+                                Textarea::make('name')
+                                    ->required()
+                                    ->columnSpanFull(),
+                                Textarea::make('short_desc')
+                                    ->columnSpanFull(),
+                                TextInput::make('issuing_organization')
+                                    ->required(),
+                                DatePicker::make('issue_date'),
+                                DatePicker::make('expiration_date'),
+                                TextInput::make('credential_id'),
+                                TextInput::make('credential_url')
+                                    ->url(),
+                                TextInput::make('order')
+                                    ->required()
+                                    ->numeric()
+                                    ->default(0),
+                                Select::make('skills')
+                                    ->label('Skills')
+                                    ->multiple()
+                                    ->relationship('skills', 'name')
+                                    ->searchable(),
+                                Select::make('technologies')
+                                    ->label('Technologies')
+                                    ->multiple()
+                                    ->relationship('technologies', 'name'),
+                                Toggle::make('published'),
+                                Toggle::make('home_page'),
+                                FileUpload::make('thumbnail'),
+                                MarkdownEditor::make('description')
+                                    ->columnSpanFull(),
+                            ]),
+                        SeoTab::make(),
+                    ])
                     ->columnSpanFull(),
             ]);
     }

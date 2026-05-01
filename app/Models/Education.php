@@ -21,10 +21,13 @@ class Education extends Model
         'degree',
         'field_of_study',
         'description',
+        'seo_title',
+        'seo_description',
     ];
 
     protected $fillable = [
         'institution',
+        'slug',
         'degree',
         'field_of_study',
         'grade',
@@ -36,6 +39,8 @@ class Education extends Model
         'thumbnail',
         'home_page',
         'published',
+        'seo_enabled',
+        'seo_title',
     ];
 
     protected $casts = [
@@ -45,6 +50,7 @@ class Education extends Model
         'order' => 'integer',
         'published' => 'boolean',
         'home_page' => 'boolean',
+        'seo_enabled' => 'boolean',
     ];
 
     /**

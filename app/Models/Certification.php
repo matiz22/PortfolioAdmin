@@ -17,22 +17,32 @@ class Certification extends Model
         ManagesFileUploads,
         HasPublishedField;
 
-    public array $translatable = ['name', 'description'];
+    public array $translatable = [
+        'name',
+        'description',
+        'seo_title',
+        'seo_description',
+        'short_desc',
+    ];
 
     protected array $fileFields = ['thumbnail'];
 
     protected $fillable = [
         'name',
+        'slug',
         'issuing_organization',
         'issue_date',
         'expiration_date',
         'credential_id',
         'credential_url',
         'description',
+        'short_desc',
         'order',
         'published',
         'home_page',
-        'thumbnail'
+        'thumbnail',
+        'seo_enabled',
+        'seo_title',
     ];
 
     protected $casts = [
@@ -41,6 +51,7 @@ class Certification extends Model
         'order' => 'integer',
         'published' => 'boolean',
         'home_page' => 'boolean',
+        'seo_enabled' => 'boolean',
     ];
 
     /**

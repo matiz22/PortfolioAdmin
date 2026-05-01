@@ -53,6 +53,24 @@ abstract class BaseController extends Controller
         }
     }
 
+    public function bySlug(string $slug)
+    {
+        $slug = trim($slug);
+        if ($slug === '') {
+            return response()->json(['message' => 'Invalid slug'], Response::HTTP_BAD_REQUEST);
+        }
+
+        try {
+            $result = $this->service->getBySlug($slug);
+            if (is_null($result)) {
+                return response()->json(['message' => 'Resource not found'], Response::HTTP_NOT_FOUND);
+            }
+            return $result;
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
     /**
      * Display a listing of the resource paginated.
      * @param Request $request
@@ -70,6 +88,70 @@ abstract class BaseController extends Controller
 
         try {
             return $this->service->getPaginated($perPage, $page);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['message' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function summary()
+    {
+        try {
+            return $this->service->getAllSummary();
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['message' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function summaryById(string $id)
+    {
+        $validId = $this->validateId($id);
+        if (!is_int($validId)) {
+            return $validId;
+        }
+
+        try {
+            $result = $this->service->getByIdSummary($validId);
+            if (is_null($result)) {
+                return response()->json(['message' => 'Resource not found'], Response::HTTP_NOT_FOUND);
+            }
+            return $result;
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function summaryBySlug(string $slug)
+    {
+        $slug = trim($slug);
+        if ($slug === '') {
+            return response()->json(['message' => 'Invalid slug'], Response::HTTP_BAD_REQUEST);
+        }
+
+        try {
+            $result = $this->service->getBySlugSummary($slug);
+            if (is_null($result)) {
+                return response()->json(['message' => 'Resource not found'], Response::HTTP_NOT_FOUND);
+            }
+            return $result;
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function summaryPaginated(Request $request)
+    {
+        $validated = $request->validate([
+            'perPage' => 'sometimes|integer|min:1|max:100',
+            'page' => 'sometimes|integer|min:1',
+        ]);
+
+        $perPage = $validated['perPage'] ?? 15;
+        $page = $validated['page'] ?? 1;
+
+        try {
+            return $this->service->getPaginatedSummary($perPage, $page);
         } catch (Exception $e) {
             Log::error($e->getMessage());
             return response()->json(['message' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -124,6 +206,24 @@ abstract class BaseController extends Controller
         }
     }
 
+    public function translatedBySlug(string $slug)
+    {
+        $slug = trim($slug);
+        if ($slug === '') {
+            return response()->json(['message' => 'Invalid slug'], Response::HTTP_BAD_REQUEST);
+        }
+
+        try {
+            $result = $this->service->getBySlugTranslated($slug);
+            if (is_null($result)) {
+                return response()->json(['message' => 'Resource not found'], Response::HTTP_NOT_FOUND);
+            }
+            return $result;
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
     /**
      * Display a listing of the resource paginated (translated).
      * @param Request $request
@@ -141,6 +241,70 @@ abstract class BaseController extends Controller
 
         try {
             return $this->service->getPaginatedTranslated($perPage, $page);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['message' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function summaryTranslated()
+    {
+        try {
+            return $this->service->getAllSummaryTranslated();
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['message' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function summaryByIdTranslated(string $id)
+    {
+        $validId = $this->validateId($id);
+        if (!is_int($validId)) {
+            return $validId;
+        }
+
+        try {
+            $result = $this->service->getByIdSummaryTranslated($validId);
+            if (is_null($result)) {
+                return response()->json(['message' => 'Resource not found'], Response::HTTP_NOT_FOUND);
+            }
+            return $result;
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function summaryBySlugTranslated(string $slug)
+    {
+        $slug = trim($slug);
+        if ($slug === '') {
+            return response()->json(['message' => 'Invalid slug'], Response::HTTP_BAD_REQUEST);
+        }
+
+        try {
+            $result = $this->service->getBySlugSummaryTranslated($slug);
+            if (is_null($result)) {
+                return response()->json(['message' => 'Resource not found'], Response::HTTP_NOT_FOUND);
+            }
+            return $result;
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function summaryPaginatedTranslated(Request $request)
+    {
+        $validated = $request->validate([
+            'perPage' => 'sometimes|integer|min:1|max:100',
+            'page' => 'sometimes|integer|min:1',
+        ]);
+
+        $perPage = $validated['perPage'] ?? 15;
+        $page = $validated['page'] ?? 1;
+
+        try {
+            return $this->service->getPaginatedSummaryTranslated($perPage, $page);
         } catch (Exception $e) {
             Log::error($e->getMessage());
             return response()->json(['message' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);

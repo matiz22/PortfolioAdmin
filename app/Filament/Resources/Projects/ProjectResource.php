@@ -7,10 +7,12 @@ use App\Filament\Resources\ProjectResource\Pages;
 use App\Filament\Resources\Projects\Pages\CreateProject;
 use App\Filament\Resources\Projects\Pages\EditProject;
 use App\Filament\Resources\Projects\Pages\ListProjects;
+use App\Filament\Forms\SeoTab;
 use App\Models\Project;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Schemas\Components\Tabs;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
@@ -36,43 +38,49 @@ class ProjectResource extends Resource
     {
         return $schema
             ->components([
-                Textarea::make('title')
-                    ->required()
-                    ->columnSpanFull(),
-                Textarea::make('short_desc')
-                    ->required()
-                    ->columnSpanFull(),
-                MarkdownEditor::make('description')
-                    ->columnSpanFull(),
-                Select::make('technologies')
-                    ->relationship('technologies', 'name')
-                    ->multiple()
-                    ->preload()
-                    ->searchable(),
-                TextInput::make('slug')
-                    ->required(),
-                FileUpload::make('thumbnail')
-                    ->image()
-                    ->directory('thumbnails')
-                    ->visibility('public'),
-                TextInput::make('live_url')
-                    ->url(),
-                TextInput::make('repo_url')
-                    ->url(),
-                TextInput::make('order')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
-                Toggle::make('home_page')
-                    ->label('Show on Home Page')
-                    ->default(false),
-                Toggle::make('published')
-                    ->default(false),
-                FileUpload::make('screenshots')
-                    ->multiple()
-                    ->image()
-                    ->directory('screenshots')
-                    ->visibility('public')
+                Tabs::make('Project Tabs')
+                    ->tabs([
+                        Tabs\Tab::make('Details')
+                            ->schema([
+                                Textarea::make('title')
+                                    ->required()
+                                    ->columnSpanFull(),
+                                Textarea::make('short_desc')
+                                    ->required()
+                                    ->columnSpanFull(),
+                                MarkdownEditor::make('description')
+                                    ->columnSpanFull(),
+                                Select::make('technologies')
+                                    ->relationship('technologies', 'name')
+                                    ->multiple()
+                                    ->preload()
+                                    ->searchable(),
+                                FileUpload::make('thumbnail')
+                                    ->image()
+                                    ->directory('thumbnails')
+                                    ->visibility('public'),
+                                TextInput::make('live_url')
+                                    ->url(),
+                                TextInput::make('repo_url')
+                                    ->url(),
+                                TextInput::make('order')
+                                    ->required()
+                                    ->numeric()
+                                    ->default(0),
+                                Toggle::make('home_page')
+                                    ->label('Show on Home Page')
+                                    ->default(false),
+                                Toggle::make('published')
+                                    ->default(false),
+                                FileUpload::make('screenshots')
+                                    ->multiple()
+                                    ->image()
+                                    ->directory('screenshots')
+                                    ->visibility('public')
+                                    ->columnSpanFull(),
+                            ]),
+                        SeoTab::make(),
+                    ])
                     ->columnSpanFull(),
             ]);
     }

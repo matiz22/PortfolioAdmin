@@ -25,21 +25,28 @@ class Job extends Model
         'description',
         'location',
         'company_name',
+        'seo_title',
+        'seo_description',
+        'short_desc',
     ];
 
     protected $fillable = [
         'company_name',
         'company_link',
         'title',
+        'slug',
         'location',
         'start_date',
         'end_date',
         'is_current',
         'description',
+        'short_desc',
         'order',
         'home_page',
         'thumbnail',
         'published',
+        'seo_enabled',
+        'seo_title',
     ];
 
     protected $casts = [
@@ -49,6 +56,7 @@ class Job extends Model
         'order' => 'integer',
         'home_page' => 'boolean',
         'published' => 'boolean',
+        'seo_enabled' => 'boolean',
     ];
 
     /**

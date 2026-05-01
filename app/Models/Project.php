@@ -19,7 +19,13 @@ class Project extends Model
         HasPublishedField,
         ManagesFileUploads;
 
-    public array $translatable = ['title', 'description', 'short_desc'];
+    public array $translatable = [
+        'title',
+        'description',
+        'short_desc',
+        'seo_title',
+        'seo_description',
+    ];
     protected $fillable = [
         'title',
         'slug',
@@ -34,6 +40,8 @@ class Project extends Model
         'home_page',
         'short_desc',
         'published',
+        'seo_enabled',
+        'seo_title',
     ];
 
     protected array $filesFields = ['screenshots'];
@@ -45,7 +53,8 @@ class Project extends Model
         'order' => 'integer',
         'screenshots' => 'array',
         'home_page' => 'boolean',
-        'published' => 'boolean'
+        'published' => 'boolean',
+        'seo_enabled' => 'boolean',
     ];
 
     public function tags(): BelongsToMany
