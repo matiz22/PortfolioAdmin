@@ -4,7 +4,6 @@ namespace App\Filament\Resources\MailEntries;
 
 use App\Filament\Resources\MailEntries\Pages\ListMailEntries;
 use App\Filament\Resources\MailEntries\Pages\ViewMailEntry;
-use App\Filament\Resources\MailEntryResource\Pages;
 use App\Models\MailEntry;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -12,10 +11,11 @@ use Filament\Actions\ViewAction;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-
 
 class MailEntryResource extends Resource
 {
@@ -27,15 +27,34 @@ class MailEntryResource extends Resource
     {
         return $schema
             ->components([
-                TextInput::make('form_name'),
-                TextInput::make('from_email')
-                    ->email(),
-                TextInput::make('from_name'),
-                TextInput::make('subject'),
-                Textarea::make('message')
-                    ->columnSpanFull(),
-                Textarea::make('error_message')
-                    ->columnSpanFull(),
+                Section::make('Sender Information')
+                    ->schema([
+                        Grid::make(2)->schema([
+                            TextInput::make('from_name')
+                                ->readOnly(),
+                            TextInput::make('from_email')
+                                ->email()
+                                ->readOnly(),
+                        ]),
+                        TextInput::make('form_name')
+                            ->readOnly(),
+                    ]),
+                Section::make('Message Content')
+                    ->schema([
+                        TextInput::make('subject')
+                            ->readOnly(),
+                        Textarea::make('message')
+                            ->readOnly()
+                            ->rows(10)
+                            ->columnSpanFull(),
+                    ]),
+                Section::make('System Information')
+                    ->schema([
+                        Textarea::make('error_message')
+                            ->readOnly()
+                            ->columnSpanFull(),
+                    ])
+                    ->collapsed(),
             ]);
     }
 
@@ -53,12 +72,7 @@ class MailEntryResource extends Resource
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->sortable(),
             ])
             ->filters([
                 //
