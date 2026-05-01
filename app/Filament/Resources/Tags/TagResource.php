@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Tags;
 
-use App\Filament\Resources\TagResource\Pages;
 use App\Filament\Resources\Tags\Pages\CreateTag;
 use App\Filament\Resources\Tags\Pages\EditTag;
 use App\Filament\Resources\Tags\Pages\ListTags;
@@ -13,15 +12,16 @@ use Filament\Actions\EditAction;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use LaraZeus\SpatieTranslatable\Resources\Concerns\Translatable;
 
-
 class TagResource extends Resource
 {
     use Translatable;
+
     protected static ?string $model = Tag::class;
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-tag';
@@ -30,11 +30,14 @@ class TagResource extends Resource
     {
         return $schema
             ->components([
-                Textarea::make('name')
-                    ->required()
-                    ->columnSpanFull(),
-                TextInput::make('slug')
-                    ->required(),
+                Section::make('Tag Details')
+                    ->schema([
+                        Textarea::make('name')
+                            ->required()
+                            ->columnSpanFull(),
+                        TextInput::make('slug')
+                            ->required(),
+                    ]),
             ]);
     }
 
@@ -42,6 +45,9 @@ class TagResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('name')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('slug')
                     ->searchable(),
                 TextColumn::make('created_at')
