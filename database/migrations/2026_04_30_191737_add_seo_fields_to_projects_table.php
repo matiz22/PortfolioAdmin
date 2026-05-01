@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::table('projects', function (Blueprint $table) {
             $table->boolean('seo_enabled')->default(false);
             $table->string('seo_title')->nullable();
-            $table->text('seo_keywords')->nullable();
         });
     }
 
@@ -27,7 +26,6 @@ return new class extends Migration
             $table->dropColumn([
                 'seo_enabled',
                 'seo_title',
-                'seo_keywords',
             ]);
         });
     }
