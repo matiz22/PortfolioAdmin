@@ -210,7 +210,7 @@ abstract class BaseService
         foreach ($this->relations as $relation) {
             if (is_string($relation) && array_key_exists($relation, $relationSelects)) {
                 $columns = $relationSelects[$relation];
-                $relations[$relation] = fn (Builder $query) => $query->select($columns);
+                $relations[$relation] = fn ($query) => $query->select($columns);
                 continue;
             }
 
