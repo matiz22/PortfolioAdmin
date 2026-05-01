@@ -27,9 +27,6 @@ class SeoTab
                     ->label('SEO Description')
                     ->rows(3)
                     ->columnSpanFull(),
-                TagsInput::make('seo_keywords')
-                    ->label('SEO Keywords')
-                    ->columnSpanFull(),
             ]);
     }
 }
