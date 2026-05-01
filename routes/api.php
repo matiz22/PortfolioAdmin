@@ -7,12 +7,15 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProficienciesApi;
 use App\Http\Controllers\ProjectsApi;
 use App\Http\Controllers\RealizationsApi;
+use App\Http\Controllers\SlugApi;
 use App\Http\Controllers\SkillsApi;
 use App\Http\Controllers\SocialLinksApi;
 use App\Http\Controllers\TechnologiesApi;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
+    Route::get('slugs', [SlugApi::class, 'index']);
+
     Route::prefix('proficiencies')->group(function () {
         Route::get('/', [ProficienciesApi::class, 'all']);
         Route::get('paginated', [ProficienciesApi::class, 'paginated']);
